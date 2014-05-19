@@ -1,0 +1,176 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.addopeningbalance' | translate}}</li>
+    </ul>
+</div>
+<form name="addopeningbalanceform" novalidate="" class="form-horizontal well" ng-controller="AddOpeningBalanceController"
+      rc-submit="submit()">
+    <api-validate></api-validate>
+    <fieldset>
+        <legend>{{ 'label.heading.addopeningbalance' | translate }}</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <select id="officeId" ng-model="formData.officeId" class="form-control"
+                        ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                </select>
+            </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.openingbalancedate' | translate }}<span class="required">*</span></label>
+
+            <div class="col-sm-2">
+                <input class="date-disable form-control" id="openingbalancedate" name="openingbalancedate" type="text" datepicker-pop="dd MMMM yyyy"
+                       ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" required
+                       late-Validate/>
+            </div>
+            <div>    
+                <form-validate valattributeform="addopeningbalanceform" valattribute="openingbalancedate"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.equity' | translate }}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <select id="equity" name="openingbalanceequity" ng-options="account.id as account.name for account in glAccounts | filter:{type.value:'EQUITY'}" ng-model="formData.coa" class="form-control" value="{{account.id}}" required>
+                <option class="displaynone" value="">{{'label.selectequity' | translate}}</option>
+                </select>
+            </div>
+            <div>
+                <form-validate valattributeform="addopeningbalanceform" valattribute="openingbalanceequity"/>
+            </div>    
+            <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
+
+            <div class="col-sm-3">
+                <textarea class="form-control ng-pristine ng-valid" ng-model="formData.comments" rows="2"></textarea>
+            </div>
+        </div>
+        <div>
+        <table class="table width100">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.accountname' | translate}}</th>
+                <th>{{'label.heading.glcode' | translate}}</th>
+                <th>{{'label.heading.debitbalance' | translate}}</th>
+                <th style="text-indent:60px;">{{'label.heading.creditbalance' | translate}}</th>
+            </tr>
+            <tr>
+                <th>{{'label.heading.asset' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main ng-scope" ng-repeat="account in glAccounts| orderBy:'type.value' | filter:{type.value:'ASSET'}">
+                <td data-ng-click="routeTo(account.id)" class="width30" style="text-indent:40px;">
+                    {{account.name}}
+                </td>
+                <td data-ng-click="routeTo(account.id)" class="width20">
+                    {{account.glCode}}
+                </td>
+                <td class="width20">
+                    <div class="col-md-10">
+                        <input id="assetdebit" class="form-control ng-pristine ng-valid" type="text" ng-model="account.debit">
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+    <div>
+        <table class="table width100">
+            <tr>
+                <th>{{'label.heading.expense' | translate}}</th>
+            </tr>
+            <tbody>
+            <tr class="pointer-main ng-scope" ng-repeat="account in glAccounts| orderBy:'type.value' | filter:{type.value:'EXPENSE'}">
+                <td data-ng-click="routeTo(account.id)" class="width30" style="text-indent:40px">
+                    {{account.name}}
+                </td>
+                <td data-ng-click="routeTo(account.id)" class="width20">
+                    {{account.glCode}}
+                </td>
+                <td class="width20">
+                    <div class="col-md-10">
+                        <input id="expensedebit" class="form-control ng-pristine ng-valid" type="text" ng-model="account.debit">
+                    </div>
+                </td>
+                <td>
+                </td>
+            </tr>
+            </tbody>
+    </div>
+
+    <div>
+        <table class="table width100">
+            <tr>
+                <th>{{'label.heading.liability' | translate}}</th>
+            </tr>
+            <tbody>
+            <tr class="pointer-main ng-scope" ng-repeat="account in glAccounts| orderBy:'type.value' | filter:{type.value:'LIABILITY'}">
+                <td data-ng-click="routeTo(account.id)" class="width30" style="text-indent:40px;">
+                    {{account.name}}
+                </td>
+                <td data-ng-click="routeTo(account.id)" class="width20">
+                    {{account.glCode}}
+                </td>
+                <td class="width20">
+                    <div class="col-md-10">
+                        <input id="debit" class="form-control ng-pristine ng-valid" type="text" ng-model="account.debit">
+                    </div>
+                </td>
+                <td>
+                </td>
+            </tr>
+            </tbody>
+    </div>
+
+    <div>
+        <table class="table width100">
+            <tr>
+                <th>{{'label.heading.revenue' | translate}}</th>
+            </tr>
+            <tbody>
+            <tr class="pointer-main ng-scope" ng-repeat="account in glAccounts| orderBy:'type.value' | filter:{type.value:'INCOME'}">
+                <td class="pointer" data-ng-click="routeTo(account.id)" class="width30" style="text-indent:40px;">
+                    {{account.name}}
+                </td>
+                <td class="pointer" data-ng-click="routeTo(account.id)" class="width30">
+                    {{account.glCode}}
+                </td>
+                <td class="pointer width20" data-ng-click="routeTo(account.id)">
+                </td>
+                <td class="pointer width20" data-ng-click="routeTo(account.id)">
+                    <div class="col-md-10">
+                        <input id="credit" class="form-control ng-pristine ng-valid" type="text" ng-model="account.credit">
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+    </div>
+           </tbody>
+    </div>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.total' | translate }}</label>
+                </div>
+            </td>
+            <td class="width20">
+                <div class="col-md-10">
+                    <input id="totaldebit" class="form-control ng-pristine ng-valid" type="text" ng-model="formData.totalDebit" disabled="disabled">
+                </div>
+            </td>
+            <td class="width20">
+                <div class="col-md-10">
+                <input id="totalcredit" class="form-control ng-pristine ng-valid" type="text" ng-model="formData.totalCredit" disabled="disabled">
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+        </table>
+        <div class="col-md-offset-5">
+            <a id="cancel" href="#/accounting" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
+        </div>
+    </fieldset>
+</form>

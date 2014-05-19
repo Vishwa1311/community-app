@@ -298,6 +298,9 @@
             .when('/searchtransaction', {
                 templateUrl: 'views/accounting/search_transaction.html'
             })
+            .when('/addopeningbalance', {
+                templateUrl: 'views/accounting/add_opening_balance.html'
+            })   
             .when('/accounts_closure', {
                 templateUrl: 'views/accounting/accounts_closure.html'
             })

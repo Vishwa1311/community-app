@@ -103,6 +103,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/AccCreateRuleController',
             'accounting/AccEditRuleController',
             'accounting/ViewAccRuleController',
+            'accounting/AddOpeningBalanceController',
             'system/CodeController',
             'system/EditCodeController',
             'system/ViewCodeController',
