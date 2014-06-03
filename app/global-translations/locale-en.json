@@ -75,6 +75,7 @@
     "label.heading.count": "Count",
     "label.heading.percentage": "Percentage",
     "label.heading.due.savings.collections":"Due Savings Collections",
+    "label.heading.remove": "Remove",
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -2143,6 +2144,8 @@
     "label.heading.inmultiplesofdeposit":"Deposit Term In multiple of",
     "label.heading.createinterestratechart":"Create Interest Rate Chart",
     "label.heading.prematurecloserecurringdepositaccount":"Premature Closure of Recurring Deposit",
+    "label.heading.advancedconfig": "Advanced Configuration",
+    "label.heading.configureadvancedcharges": "Configure Advanced Charge Options",
 
 
     "#Anchors": "..",
@@ -2220,6 +2223,7 @@
     "label.input.overpaymentliability": "Over payment liability",
     "label.input.chargesappliesto": "Charges applies to",
     "label.input.ispenalty": "Is penalty?",
+    "label.input.applytoall": "Applicable To All",
     "label.input.multiplesof": "Multiples of",
     "label.input.savingreference": "Saving reference",
     "label.input.savingcontrol": "Saving control",

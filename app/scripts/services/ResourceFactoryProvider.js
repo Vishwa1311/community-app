@@ -116,7 +116,7 @@
                     }),
                     chargeResource: defineResource(apiVer + "/charges/:chargeId", {chargeId: '@chargeId'}, {
                         getAllCharges: {method: 'GET', params: {}, isArray: true},
-                        getCharge: {method: 'GET', params: {}},
+                        getCharge: {method: 'GET', params: {associations: 'all'}},
                         update: {method: 'PUT', params: {}}
                     }),
                     chargeTemplateResource: defineResource(apiVer + "/charges/template", {

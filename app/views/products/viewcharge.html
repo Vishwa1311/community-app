@@ -75,6 +75,26 @@
                     <td>{{charge.feeInterval}}</td>
                 </tr>
             </table>
-        </div>
+            <br>
+            <br>
+            <div class="form-group" ng-show="template.chargeAppliesTo.value === 'Savings' && template.paymentTypeCharges">
+            <table class="table width100">
+                <tr class="graybg">
+                    <th class="width30">{{'label.heading.paymenttype' | translate}}</th>
+                    <th></th>
+                    <th class="width30">{{'label.heading.calculationtype' | translate}}</th>
+                    <th></th>
+                    <th class="width30">{{'label.heading.amount' | translate}}</th>
+                </tr>
+                <tr ng-repeat="chargeAdvanceConfigOption in paymentTypes">
+                    <td class="width30">{{chargeAdvanceConfigOption.id}}</td>
+                    <td></td>
+                    <td class="width30">{{chargeAdvanceConfigOption.chargeCalculationType}}</td>
+                    <td></td>
+                    <td class="width30">{{chargeAdvanceConfigOption.amount}}</td>
+                </tr>
+            </table>
+            </div>
     </div>
+</div>
 </div>

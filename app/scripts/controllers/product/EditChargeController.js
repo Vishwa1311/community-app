@@ -6,9 +6,15 @@
             scope.repeatEvery = false;
             scope.first = {};
             scope.flag = false;
+            scope.showOrHideValue = "hide";
+            scope.paymentTypeCharges = [];
+            scope.paymentTypes = [];
+            scope.paymentTypeOptions = [];
+            scope.chargeCalculationTypeOptions = [];
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
-
+                scope.paymentTypeCharges = data.paymentTypeCharges;
+                scope.paymentTypeOptions = data.paymentTypeOptions;
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
                     scope.flag = false;
@@ -17,6 +23,7 @@
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
+                    scope.chargeCalculationTypeOptions = data.savingsChargeCalculationTypeOptions;
                 }
 
                 scope.formData = {
@@ -34,6 +41,19 @@
                     scope.addfeefrequency = 'true';
                     scope.formData.feeFrequency = data.feeFrequency.id;
                     scope.formData.feeInterval = data.feeInterval;
+                }
+
+                scope.addAdvanceChargeConfig = function () {
+                    if (scope.paymentTypeOptions.length > 0 &&
+                        scope.chargeCalculationTypeOptions.length > 0) {
+                        scope.paymentTypes.push({
+                            id: scope.paymentTypeOptions[0].id,
+                            chargeCalculationType: scope.chargeCalculationTypeOptions[0].id,
+                            amount: scope.amount,
+                            locale: scope.optlang.code
+                        });
+                    }
+                    ;
                 }
 
                 //when chargeAppliesTo is savings, below logic is
@@ -61,7 +81,23 @@
                 } else {
                     scope.formData.chargePaymentMode = data.chargePaymentMode.id;
                 }
+
+                scope.populatePaymentTypes();
             });
+
+            scope.populatePaymentTypes = function () {
+
+                _.each(scope.paymentTypeCharges, function (paymentTypeCharge) {
+
+                    scope.paymentTypes.push({
+                        id: paymentTypeCharge.paymentTypeId,
+                        chargeCalculationType: paymentTypeCharge.chargeCalculationType.id,
+                        amount: paymentTypeCharge.amount,
+                        locale: scope.optlang.code
+                    });
+                });
+
+            }
             //when chargeAppliesTo is savings, below logic is
             //to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
@@ -84,6 +120,21 @@
                     }
                 }
             }
+            scope.showOrHide = function (showOrHideValue) {
+
+                if (showOrHideValue == "show" && scope.formData.chargeAppliesTo === 2) {
+                    scope.showOrHideValue = 'hide';
+                }
+
+                if (showOrHideValue == "hide" && scope.formData.chargeAppliesTo === 2) {
+                    scope.showOrHideValue = 'show';
+                }
+            }
+
+            scope.deleteConfig = function (index) {
+                scope.paymentTypes.splice(index, 1);
+            }
+
             scope.submit = function () {
                 if (scope.formData.chargeAppliesTo === 2) {
                     if (scope.showdatefield === true) {
@@ -91,6 +142,7 @@
                         this.formData.monthDayFormat = 'dd MMM';
                         this.formData.feeOnMonthDay = reqDate;
                     }
+                    this.formData.paymentTypes = scope.paymentTypes;
                 }else if(scope.addfeefrequency == 'false'){
                     scope.formData.feeFrequency = null;
                     scope.formData.feeInterval = null;
