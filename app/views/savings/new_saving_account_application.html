@@ -152,11 +152,13 @@
         </tr>
         <tr>
             <td colspan="2" class="paddedbottom10 paddedtop">
-                <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers">&nbsp;
+                <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers" ng-true-value="true" ng-false-value="false">&nbsp;
                 <label class="control-label">{{ 'label.input.withdrawalfeefotransfers' | translate }}&nbsp;</label>
             </td>
-            <td class="width14"></td>
-            <td class="width36 paddedbottom10"></td>
+            <td colspan="2" class="paddedbottom10 paddedtop">
+                <input type="checkbox" ng-model="formData.depositFeeForTransfers" ng-true-value="true" ng-false-value="false">&nbsp;
+                <label class="control-label">{{ 'label.input.applydepositfeefortransfers' | translate }}&nbsp;{{ formData.depositFeeForTransfers }}</label>
+            </td>
         </tr>
         <tr>
             <td colspan="2" class="paddedbottom10">

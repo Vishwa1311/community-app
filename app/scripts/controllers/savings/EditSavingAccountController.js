@@ -46,7 +46,8 @@
                 /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
                 //scope.formData.annualFeeAmount = data.annualFeeAmount;
                 scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
-                scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
+                scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers == true ? 'true' : 'false';
+                scope.formData.depositFeeForTransfers = data.depositFeeForTransfers == true ? 'true' : 'false';
                 scope.formData.allowOverdraft = data.allowOverdraft;
                 scope.formData.overdraftLimit = data.overdraftLimit;
 

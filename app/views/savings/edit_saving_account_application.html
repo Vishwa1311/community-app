@@ -150,11 +150,13 @@
         </tr>
         <tr>
             <td colspan="2" class="paddedbottom10 paddedtop">
-                <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers">&nbsp;
+                <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers" ng-true-value="true" ng-false-value="false">&nbsp;
                 <label class="control-label">{{ 'label.input.withdrawalfeefotransfers' | translate }}&nbsp;</label>
             </td>
-            <td class="width14"></td>
-            <td class="width36 paddedbottom10"></td>
+            <td colspan="2" class="paddedbottom10 paddedtop">
+                <input type="checkbox" ng-model="formData.depositFeeForTransfers" ng-true-value="true" ng-false-value="false">&nbsp;
+                <label class="control-label">{{ 'label.input.applydepositfeefortransfers' | translate }}&nbsp;</label>
+            </td>
         </tr>
         <tr>
             <td colspan="2" class="paddedbottom10">
@@ -203,9 +205,14 @@
         <tr ng-repeat="charge in charges">
             <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
             <td>{{charge.chargeCalculationType.value}}</td>
-            <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text"
+            <td>
+               <input ng-show="charge.chargeCalculationType.value === 'Flat'" id="charges[{{$index}}].amount" class="input-sm form-control" type="text"
                        ng-model="charge.amount"
-                       placeholder="{{'label.placeholder.amount' | translate}}"/></td>
+                       placeholder="{{'label.placeholder.amount' | translate}}"/>
+                <input ng-show="charge.chargeCalculationType.value === '% Amount'" id="charges[{{$index}}].percentage" class="input-sm form-control" type="text"
+                       ng-model="charge.percentage"
+                       placeholder="{{'label.placeholder.amount' | translate}}"/>
+            </td>
             <td>{{charge.chargeTimeType.value}}</td>
             <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
                 <input id="charges[{{$index}}].feeOnMonthDay" class="input-medium form-control" readonly
