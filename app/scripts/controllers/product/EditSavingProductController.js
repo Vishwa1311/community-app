@@ -27,6 +27,7 @@
                     minRequiredOpeningBalance: data.minRequiredOpeningBalance,
                     lockinPeriodFrequency: data.lockinPeriodFrequency,
                     withdrawalFeeForTransfers: data.withdrawalFeeForTransfers == true ? 'true' : 'false',
+                    depositFeeForTransfers: data.depositFeeForTransfers == true ? 'true' : 'false',
                     interestCompoundingPeriodType: data.interestCompoundingPeriodType.id,
                     interestPostingPeriodType: data.interestPostingPeriodType.id,
                     interestCalculationType: data.interestCalculationType.id,

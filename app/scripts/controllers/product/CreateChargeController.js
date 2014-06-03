@@ -8,12 +8,16 @@
             scope.showdatefield = false;
             scope.repeatEvery = false;
             scope.first.date = new Date();
+            scope.showOrHideValue = "show";
+            scope.paymentTypes = [];
 
             resourceFactory.chargeTemplateResource.get(function (data) {
+                scope.product = data;
                 scope.template = data;
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
+                scope.paymentTypeOptions = data.paymentTypeOptions;
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
@@ -53,6 +57,33 @@
                 }
             }
 
+            scope.showOrHide = function (showOrHideValue) {
+
+                if (showOrHideValue == "show" && scope.formData.chargeAppliesTo === 2) {
+                    scope.showOrHideValue = 'hide';
+                }
+
+                if (showOrHideValue == "hide" && scope.formData.chargeAppliesTo === 2) {
+                    scope.showOrHideValue = 'show';
+                }
+            }
+
+            scope.addAdvanceChargeConfig = function () {
+                if (scope.product.paymentTypeOptions.length > 0 &&
+                    scope.chargeCalculationTypeOptions.length > 0) {
+                    scope.paymentTypes.push({
+                        id: scope.product.paymentTypeOptions[0].id,
+                        chargeCalculationType: scope.chargeCalculationTypeOptions[0].id,
+                        amount: scope.amount
+                    });
+                }
+                ;
+            }
+
+            scope.deleteConfig = function (index) {
+                scope.paymentTypes.splice(index, 1);
+            }
+
             scope.setChoice = function () {
                 if (this.formData.active) {
                     scope.choice = 1;
@@ -84,6 +115,9 @@
                 this.formData.active = this.formData.active || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
+                if (scope.formData.chargeAppliesTo === 2) {
+                    this.formData.paymentTypes = scope.paymentTypes;
+                }
                 resourceFactory.chargeResource.save(this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
                 });

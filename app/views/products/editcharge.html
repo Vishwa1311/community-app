@@ -7,7 +7,7 @@
             <li class="active">{{'label.anchor.editcharge' | translate}}</li>
         </ul>
     </div>
-    <form name="editchargeform" novalidate class="form-horizontal" rc-submit="submit()">
+    <form name="editchargeform" novalidate class="form-horizontal well" rc-submit="submit()">
         <fieldset>
             <legend>{{'label.heading.editcharge' | translate}}</legend>
             <div class="form-group">
@@ -155,6 +155,76 @@
                     </label>
                 </div>
             </div>
+            <div class="form-group" ng-show="formData.chargeAppliesTo === 2">
+                <label class="control-label col-sm-2" for="applicableToAllProducts">{{'label.input.applytoall' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input id="applicableToAllProducts" type="checkbox" ng-model="formData.applicableToAllProducts">
+                    </label>
+                </div>
+            </div>
+            <table class="width100" ng-show="formData.chargeAppliesTo === 2">
+                <tr class="form-group width100">
+                    <td>
+                        <h4>{{'label.heading.advancedconfig' | translate}} [<a ng-click="showOrHide(showOrHideValue)">{{showOrHideValue}}</a>]
+                        </h4></br>
+                    </td>
+                </tr>
+                <tr class="form-group width100">
+                    <td>
+                        <table class="width100" ng-show="showOrHideValue == 'hide'">
+                            <tr>
+                                <td>{{'label.heading.configureadvancedcharges' | translate}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><a class="btn btn-primary" ng-click="addAdvanceChargeConfig()">{{ 'label.button.add' | translate
+                                    }}</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="table width100">
+                                        <tr class="graybg">
+                                            <th class="width30">{{'label.heading.paymenttype' | translate}}</th>
+                                            <th></th>
+                                            <th class="width30">{{'label.heading.calculationtype' | translate}}</th>
+                                            <th></th>
+                                            <th class="width30">{{'label.heading.amount' | translate}}</th>
+                                            <th class="width30">{{'label.heading.remove' | translate}}</th>
+                                        </tr>
+                                        <tr ng-repeat="chargeAdvanceConfigOption in paymentTypes">
+                                            <td class="width30">
+                                                <select id="paymentTypes[{{$index}}].id"
+                                                        class="form-control width170px"
+                                                        ng-model="chargeAdvanceConfigOption.id"
+                                                        ng-options="id.id as id.name for id in paymentTypeOptions"
+                                                        value="{{id.id}}" >
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td class="width30">
+                                                <select id="chargeCalculationTypes[{{$index}}].chargeCalculationType"
+                                                        class="form-control width170px"
+                                                        ng-model="chargeAdvanceConfigOption.chargeCalculationType"
+                                                        ng-options="chargeCalculationType.id as chargeCalculationType.value for chargeCalculationType in chargeCalculationTypeOptions"
+                                                        value="{{chargeCalculationType.id}}" class="form-control">
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td class="width30">
+                                                <input id="paymentTypeAmount" ng-model="chargeAdvanceConfigOption.amount" type="text" class="form-control" required late-Validate/>
+                                            </td>
+                                            <td></td>
+                                            <td class="width30"><i class="icon-remove" ng-click="deleteConfig($index)"></i></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
             <div class="col-md-offset-3">
                 <a id="cancel" href="#/viewcharge/{{template.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_CHARGE'>{{'label.button.save' | translate}}</button>

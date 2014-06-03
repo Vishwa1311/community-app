@@ -75,6 +75,7 @@
     "label.heading.count": "Count",
     "label.heading.percentage": "Percentage",
     "label.heading.due.savings.collections":"Due Savings Collections",
+    "label.heading.remove": "Remove",
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -1339,6 +1340,7 @@
     "label.heading.editsavingapplication": "Edit Saving Application",
     "label.heading.terms": "Terms",
     "label.heading.withdrawalfeefotransfers":"Apply Withdrawal fee for transfers",
+    "label.heading.depositfeefortransfers":"Apply Deposit fee for transfers",
     "label.heading.decimalplaces": "Decimal Places",
     "label.heading.charges": "Charges",
     "label.heading.collectedon": "Collected On",
@@ -1419,6 +1421,7 @@
     "label.input.minimumopeningbalance": "Minimum opening balance",
     "label.input.lockinPeriodFrequency": "Locking period frequency",
     "label.input.withdrawalfeefotransfers": "Apply Withdrawal fee for transfers",
+    "label.input.applydepositfeefortransfers": "Apply Deposit fee for transfers",
     "label.input.savingaccountapprovedOnDate": "Approved on",
     "label.input.rejectedon": "Rejected on",
     "label.input.withdrawnon": "Withdrawn on",
@@ -2141,6 +2144,9 @@
     "label.heading.inmultiplesofdeposit":"Deposit Term In multiple of",
     "label.heading.createinterestratechart":"Create Interest Rate Chart",
     "label.heading.prematurecloserecurringdepositaccount":"Premature Closure of Recurring Deposit",
+    "label.heading.advancedconfig": "Advanced Configuration",
+    "label.heading.configureadvancedcharges": "Configure Advanced Charge Options",
+    "label.heading.applicableToAllProducts":"Applicable To All Savings Products",
 
 
     "#Anchors": "..",
@@ -2218,6 +2224,7 @@
     "label.input.overpaymentliability": "Over payment liability",
     "label.input.chargesappliesto": "Charges applies to",
     "label.input.ispenalty": "Is penalty?",
+    "label.input.applytoall": "Applicable To All Savings Poducts",
     "label.input.multiplesof": "Multiples of",
     "label.input.savingreference": "Saving reference",
     "label.input.savingcontrol": "Saving control",
@@ -2501,7 +2508,7 @@
     "validation.msg.loanproduct.maxInterestRatePerPeriodPerCycle.is.less.than.min":"Maximum Interest rate {{params[0].value}} is invalid. Must be an number greater than or equal to Minimum Interest rate {{params[1].value}}.",
     "error.msg.product.loan.duplicate.short.name":"Loan product with short name {{params[0].value}} already exists.",
     "error.msg.product.savings.duplicate.short.name":"Savings product with short name {{params[0].value}} already exists.",
-
+    "error.msg.charge.duplicate.payment.type.mapping":"A payment type cannot be mapped more than once",
 
     "------------------": "------------",
 
