@@ -19,6 +19,7 @@
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
+                    scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.flag = true;
@@ -42,19 +43,6 @@
                     scope.addfeefrequency = 'true';
                     scope.formData.feeFrequency = data.feeFrequency.id;
                     scope.formData.feeInterval = data.feeInterval;
-                }
-
-                scope.addAdvanceChargeConfig = function () {
-                    if (scope.paymentTypeOptions.length > 0 &&
-                        scope.chargeCalculationTypeOptions.length > 0) {
-                        scope.paymentTypes.push({
-                            id: scope.paymentTypeOptions[0].id,
-                            chargeCalculationType: scope.chargeCalculationTypeOptions[0].id,
-                            amount: scope.amount,
-                            locale: scope.optlang.code
-                        });
-                    }
-                    ;
                 }
 
                 //when chargeAppliesTo is savings, below logic is
@@ -82,20 +70,20 @@
                 } else {
                     scope.formData.chargePaymentMode = data.chargePaymentMode.id;
                 }
-
+                if (data.chargeTimeType.value == "Withdrawal Fee" || data.chargeTimeType.value == "Deposit Fee") {
+                    scope.showPaymentType = true;
+                    scope.repeatEvery = false;
+                }
+                else {
+                    scope.showPaymentType = false;
+                }
                 scope.populatePaymentTypes();
             });
 
             scope.populatePaymentTypes = function () {
 
                 _.each(scope.paymentTypeCharges, function (paymentTypeCharge) {
-
-                    scope.paymentTypes.push({
-                        id: paymentTypeCharge.paymentType.id,
-                        chargeCalculationType: paymentTypeCharge.chargeCalculationType.id,
-                        amount: paymentTypeCharge.amount,
-                        locale: scope.optlang.code
-                    });
+                    scope.paymentType =  paymentTypeCharge.paymentType.id;
                 });
 
             }
@@ -117,33 +105,27 @@
                             } else {
                                 scope.showdatefield = false;
                             }
+                            if (scope.template.chargeTimeTypeOptions[i].value == "Withdrawal Fee" || scope.template.chargeTimeTypeOptions[i].value == "Deposit Fee") {
+                                alert("Test11");
+                                scope.showPaymentType = true;
+                                scope.repeatEvery = false;
+                            }
+                            else {
+                                scope.showPaymentType = false;
+                            }
                         }
                     }
                 }
             }
-            scope.showOrHide = function (showOrHideValue) {
-
-                if (showOrHideValue == "show" && scope.formData.chargeAppliesTo === 2) {
-                    scope.showOrHideValue = 'hide';
-                }
-
-                if (showOrHideValue == "hide" && scope.formData.chargeAppliesTo === 2) {
-                    scope.showOrHideValue = 'show';
-                }
-            }
-
-            scope.deleteConfig = function (index) {
-                scope.paymentTypes.splice(index, 1);
-            }
 
             scope.submit = function () {
-                if (scope.formData.chargeAppliesTo === 2) {
+                if (scope.formData.chargeAppliesTo.value === 'Savings') {
                     if (scope.showdatefield === true) {
                         var reqDate = dateFilter(scope.first.date, 'dd MMMM');
                         this.formData.monthDayFormat = 'dd MMM';
                         this.formData.feeOnMonthDay = reqDate;
                     }
-                    this.formData.paymentTypes = scope.paymentTypes;
+                    this.formData.paymentTypes = scope.paymentType;
                 }else if(scope.addfeefrequency == 'false'){
                     scope.formData.feeFrequency = null;
                     scope.formData.feeInterval = null;
@@ -152,6 +134,18 @@
                 this.formData.active = this.formData.active || false;
                 this.formData.applicableToAllProducts = this.formData.applicableToAllProducts || false;
                 this.formData.penalty = this.formData.penalty || false;
+                if (scope.formData.chargeAppliesTo === 2) {
+                    if (!(scope.paymentType === '' || _.isNull(scope.paymentType) || _.isUndefined(scope.paymentType))) {
+                        scope.paymentTypes = [];
+                        scope.paymentTypes.push({
+                            id: scope.paymentType,
+                            chargeCalculationType: scope.formData.chargeCalculationType,
+                            amount: scope.formData.amount,
+                            locale: scope.formData.locale
+                        });
+                        this.formData.paymentTypes = scope.paymentTypes;
+                    }
+                }
                 resourceFactory.chargeResource.update({chargeId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
                 });

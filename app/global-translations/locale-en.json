@@ -2083,7 +2083,7 @@
     "label.heading.repaymentstrategy": "Repayment Strategy",
     "label.heading.grace": "Grace",
     "label.heading.interestfreeperiod": "Interest Free Period",
-    "label.heading.paymenttype": "Payment Type",
+    "label.heading.paymenttype": "Payment Type:",
     "label.heading.fundsource": "Fund Source",
     "label.heading.loanportfolio": "Loan Portfolio",
     "label.heading.receivableinterest":"Receivable Interest",

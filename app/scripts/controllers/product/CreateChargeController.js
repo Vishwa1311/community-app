@@ -10,6 +10,9 @@
             scope.first.date = new Date();
             scope.showOrHideValue = "show";
             scope.paymentTypes = [];
+            scope.paymentType= '';
+            scope.showApplicableToAllProducts = false;
+            scope.showPaymentType = false;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.product = data;
@@ -26,6 +29,7 @@
                     scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
                     scope.showFrequencyOptions = true;
+                    scope.showApplicableToAllProducts = false;
                 } else {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -52,36 +56,25 @@
                             } else {
                                 scope.showdatefield = false;
                             }
+                            if (scope.chargeTimeTypeOptions[i].value == "Withdrawal Fee" || scope.chargeTimeTypeOptions[i].value == "Deposit Fee") {
+                                scope.showPaymentType = true;
+                                scope.repeatEvery = false;
+                            }
+                            else {
+                                scope.showPaymentType = false;
+                            }
                         }
                     }
                 }
             }
 
-            scope.showOrHide = function (showOrHideValue) {
-
-                if (showOrHideValue == "show" && scope.formData.chargeAppliesTo === 2) {
-                    scope.showOrHideValue = 'hide';
+            scope.showOrHideApplicableToAllSavings = function() {
+                if (scope.formData.chargeAppliesTo === 2 && !(scope.paymentType === '' || _.isNull(scope.paymentType) || _.isUndefined(scope.paymentType))) {
+                        scope.showApplicableToAllProducts = true;
+                    }
+                else {
+                    scope.showApplicableToAllProducts = false;
                 }
-
-                if (showOrHideValue == "hide" && scope.formData.chargeAppliesTo === 2) {
-                    scope.showOrHideValue = 'show';
-                }
-            }
-
-            scope.addAdvanceChargeConfig = function () {
-                if (scope.product.paymentTypeOptions.length > 0 &&
-                    scope.chargeCalculationTypeOptions.length > 0) {
-                    scope.paymentTypes.push({
-                        id: scope.product.paymentTypeOptions[0].id,
-                        chargeCalculationType: scope.chargeCalculationTypeOptions[0].id,
-                        amount: scope.amount
-                    });
-                }
-                ;
-            }
-
-            scope.deleteConfig = function (index) {
-                scope.paymentTypes.splice(index, 1);
             }
 
             scope.setChoice = function () {
@@ -115,8 +108,17 @@
                 this.formData.active = this.formData.active || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
-                if (scope.formData.chargeAppliesTo === 2) {
-                    this.formData.paymentTypes = scope.paymentTypes;
+                scope.paymentTypes = [];
+                scope.formData.paymentTypes = [];
+                if (scope.formData.chargeAppliesTo === 2 && (scope.formData.chargeTimeType === 5 || scope.formData.chargeTimeType === 11)) {
+                    if (!(scope.paymentType === '' || _.isNull(scope.paymentType) || _.isUndefined(scope.paymentType))) {
+                        scope.paymentTypes.push({
+                            id: scope.paymentType,
+                            chargeCalculationType: scope.formData.chargeCalculationType,
+                            amount: scope.formData.amount
+                        });
+                        this.formData.paymentTypes = scope.paymentTypes;
+                    }
                 }
                 resourceFactory.chargeResource.save(this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);

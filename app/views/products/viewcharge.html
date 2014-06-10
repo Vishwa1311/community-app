@@ -74,31 +74,15 @@
                     <td>{{'label.input.frequencyInterval' | translate}}</td>
                     <td>{{charge.feeInterval}}</td>
                 </tr>
-                <tr ng-show="charge.chargeAppliesTo.value === 'Savings'">
+                <tr ng-show="charge.chargeAppliesTo === 2">
                     <td>{{'label.heading.applicableToAllProducts' | translate}}</td>
                     <td>{{charge.applicableToAllProducts}}</td>
                 </tr>
-            </table>
-            <br>
-            <br>
-            <div class="form-group" ng-show="charge.chargeAppliesTo.value === 'Savings' && charge.paymentTypeCharges">
-            <table class="table width100">
-                <tr class="graybg">
-                    <th class="width30">{{'label.heading.paymenttype' | translate}}</th>
-                    <th></th>
-                    <th class="width30">{{'label.heading.calculationtype' | translate}}</th>
-                    <th></th>
-                    <th class="width30">{{'label.heading.amount' | translate}}</th>
-                </tr>
-                <tr ng-repeat="chargeAdvanceConfigOption in paymentTypes">
-                    <td class="width30">{{chargeAdvanceConfigOption.name}}</td>
-                    <td></td>
-                    <td class="width30">{{chargeAdvanceConfigOption.chargeCalculationType}}</td>
-                    <td></td>
-                    <td class="width30">{{chargeAdvanceConfigOption.amount}}</td>
+                <tr ng-show="charge.chargeAppliesTo.id === 2 && paymentType != ''">
+                    <td>{{'label.heading.paymenttype' | translate}}</td>
+                    <td>{{paymentType.name}}</td>
                 </tr>
             </table>
-            </div>
     </div>
 </div>
 </div>

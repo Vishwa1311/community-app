@@ -7,6 +7,7 @@
             scope.paymentTypes = [];
             scope.paymentTypeOptions = [];
             scope.chargeCalculationTypeOptions = [];
+            scope.paymentType = '';
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.charge = data;
@@ -16,12 +17,9 @@
                 scope.chargeCalculationTypeOptions = data.savingsChargeCalculationTypeOptions;
                 scope.populatePaymentTypes = function () {
                     _.each(scope.paymentTypeCharges, function (paymentTypeCharge) {
-                        scope.paymentTypes.push({
-                            id: paymentTypeCharge.paymentTypeId,
-                            name: paymentTypeCharge.paymentType.name,
-                            chargeCalculationType: paymentTypeCharge.chargeCalculationType.value,
-                            amount: paymentTypeCharge.amount
-                        });
+                        scope.paymentType = {
+                            name: paymentTypeCharge.paymentType.name
+                        };
                     });
                 }
                 scope.populatePaymentTypes();
@@ -44,6 +42,7 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
         }
     });
     mifosX.ng.application.controller('ViewChargeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewChargeController]).run(function ($log) {
