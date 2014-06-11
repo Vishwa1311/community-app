@@ -108,10 +108,12 @@
                 this.formData.active = this.formData.active || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
-                scope.paymentTypes = [];
-                scope.formData.paymentTypes = [];
+                delete scope.formData.paymentTypes;
+
                 if (scope.formData.chargeAppliesTo === 2 && (scope.formData.chargeTimeType === 5 || scope.formData.chargeTimeType === 11)) {
                     if (!(scope.paymentType === '' || _.isNull(scope.paymentType) || _.isUndefined(scope.paymentType))) {
+                        scope.paymentTypes = [];
+                        scope.formData.paymentTypes = [];
                         scope.paymentTypes.push({
                             id: scope.paymentType,
                             chargeCalculationType: scope.formData.chargeCalculationType,

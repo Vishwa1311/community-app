@@ -108,7 +108,6 @@
                                 scope.showdatefield = false;
                             }
                             if (scope.template.chargeTimeTypeOptions[i].value == "Withdrawal Fee" || scope.template.chargeTimeTypeOptions[i].value == "Deposit Fee") {
-                                alert("Test11");
                                 scope.showPaymentType = true;
                                 scope.repeatEvery = false;
                             }
@@ -149,6 +148,7 @@
                 if (scope.formData.chargeAppliesTo === 2) {
                     if (!(scope.paymentType === '' || _.isNull(scope.paymentType) || _.isUndefined(scope.paymentType))) {
                         scope.paymentTypes = [];
+                        scope.formData.paymentTypes = [];
                         scope.paymentTypes.push({
                             id: scope.paymentType,
                             chargeCalculationType: scope.formData.chargeCalculationType,
