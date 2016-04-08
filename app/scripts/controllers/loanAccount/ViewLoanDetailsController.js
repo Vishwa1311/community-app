@@ -151,11 +151,31 @@
                 };
             };
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
+            scope.tabs = [
+                { active: true },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false }
+            ];
+
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id}, function (data) {
                 scope.loandetails = data;
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
-                scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
+                if(scope.loandetails.repaymentSchedule && scope.loandetails.repaymentSchedule.totalWaived){
+                    scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
+                }
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
                 scope.date.toDate = new Date();
                 scope.status = data.status.value;
@@ -174,8 +194,7 @@
                     }
 
                     scope.chargeTableShow = true;
-                }
-                else {
+                }else {
                     scope.chargeTableShow = false;
                 }
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
@@ -411,11 +430,83 @@
                     ]
                     };
                 }
+                //scope.getAllLoanNotes();
             });
 
-            resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
-                scope.loanNotes = data;
-            });
+            scope.isRepaymentSchedule = false;
+            scope.istransactions = false;
+            scope.iscollateral = false;
+            scope.isMultiDisburseDetails = false;
+            scope.isInterestRatesPeriods = false;
+            scope.ischarges = false;
+            scope.getSpecificData = function (associations){
+                scope.isDataAlreadyFetched = false;
+                if(associations === 'repaymentSchedule'){
+                    associations = "repaymentSchedule,futureSchedule,originalSchedule";
+                }
+                if((associations === 'repaymentSchedule'  || associations === 'repaymentSchedule,futureSchedule,originalSchedule' )&& scope.isRepaymentSchedule === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'transactions' && scope.istransactions === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'collateral' && scope.iscollateral === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'multiDisburseDetails' && scope.isMultiDisburseDetails === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'interestRatesPeriods' && scope.isInterestRatesPeriods === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'charges' && scope.ischarges === true){
+                    scope.isDataAlreadyFetched = true;
+                }
+                if(!scope.isDataAlreadyFetched){
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: associations,isFetchSpecificData: true}, function (data) {
+                        scope.loanSpecificData = data;
+                        if(associations === 'repaymentSchedule' || associations === 'repaymentSchedule,futureSchedule,originalSchedule'){
+                            scope.isRepaymentSchedule = true;
+                            scope.loandetails.originalSchedule = scope.loanSpecificData.originalSchedule;
+                            scope.loandetails.repaymentSchedule = scope.loanSpecificData.repaymentSchedule;
+                            scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
+                        }else if(associations === 'transactions'){
+                            scope.istransactions = true;
+                            scope.loandetails.transactions = scope.loanSpecificData.transactions;
+                            scope.convertDateArrayToObject('date');
+                        }else if(associations === 'collateral'){
+                            scope.iscollateral = true;
+                            scope.loandetails.collateral = scope.loanSpecificData.collateral;
+                        }else if(associations === 'multiDisburseDetails'){
+                            scope.isMultiDisburseDetails = true;
+                            scope.loandetails.disbursementDetails = scope.loanSpecificData.disbursementDetails;
+                        }else if(associations === 'interestRatesPeriods'){
+                            scope.isInterestRatesPeriods = true;
+                            scope.loandetails.interestRatesPeriods = scope.loanSpecificData.interestRatesPeriods;
+                        }else if(associations === 'charges'){
+                            scope.ischarges = true;
+                            scope.loandetails.charges = scope.loanSpecificData.charges;
+                            if (scope.loandetails.charges) {
+                                scope.charges = scope.loandetails.charges;
+                                for (var i in scope.charges) {
+                                    if (scope.charges[i].paid || scope.charges[i].waived || scope.charges[i].chargeTimeType.value == 'Disbursement' || scope.loandetails.status.value != 'Active') {
+                                        var actionFlag = true;
+                                    }
+                                    else {
+                                        var actionFlag = false;
+                                    }
+                                    scope.charges[i].actionFlag = actionFlag;
+                                }
+
+                                scope.chargeTableShow = true;
+                            }else {
+                                scope.chargeTableShow = false;
+                            }
+                        }
+                    });
+                }
+            };
+
+            scope.getAllLoanNotes = function () {
+                resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
+                    scope.loanNotes = data;
+                });
+            };
 
             scope.saveNote = function () {
                 resourceFactory.loanResource.save({loanId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
