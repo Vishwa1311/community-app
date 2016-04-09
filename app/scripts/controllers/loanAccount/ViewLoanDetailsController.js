@@ -169,7 +169,14 @@
                 { active: false }
             ];
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id}, function (data) {
+
+            /* For multiple disbursement loans, if second loan is due for disbursement, disburse button does not appearing,
+                 hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
+             */
+
+            var multiTranchDataRequest = "multiDisburseDetails";
+
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations: multiTranchDataRequest,isFetchSpecificData: true}, function (data) {
                 scope.loandetails = data;
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
