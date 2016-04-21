@@ -519,7 +519,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="period in loandetails.originalSchedule.periods">
+                            <tr ng-repeat="period in loandetails.originalSchedule.periods" ng-hide="period.recalculatedInterestComponent">
                                 <td>{{period.dueDate | DateFormat}}</td>
 
                                 <td>{{period.principalDue | number}}</td>
