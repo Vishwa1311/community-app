@@ -8,8 +8,7 @@ define(['underscore'], function () {
             'app',
             'nv.d3',
             'style',
-            'chosen.min',
-            'loading-bar'
+            'chosen.min'
         ]
     };
 
