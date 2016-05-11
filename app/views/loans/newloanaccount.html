@@ -200,7 +200,9 @@
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
                     <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy"
-                           ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control"/>
+                           ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" name="repaymentsStartingFromDate"
+                            ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"  late-validate/>
+                    <span class="error" ng-show="issubmitted && newloanaccountform.repaymentsStartingFromDate.$error.required">{{'label.error.required' | translate}}</span>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label>
                 <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i></td>
@@ -651,7 +653,7 @@
 
 <div class="col-md-offset-6">
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-    <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' |
+    <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo"  ng-click="issubmitted = true">{{'label.button.save' |
         translate}}
     </button>
 </div>

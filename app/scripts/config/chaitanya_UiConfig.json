@@ -41,6 +41,9 @@
         "fundId": 45,
         "syncDisbursementWithMeeting": false,
         "paymentTypeId": 750
+      },
+      "isMandatory":{
+        "repaymentsStartingFromDate":true
       }
     },
     "viewLoanAccountDetails":{
