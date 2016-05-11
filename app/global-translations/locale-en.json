@@ -267,6 +267,7 @@
 
     "#Enumeration & Error Messages": "..",
     "label.error": "Error",
+    "label.error.required" : "Required Field",
     "error.login.failed": "Please try again, your credentials are not valid.",
     "error.connection.failed": "Couldn't connect to server. Make sure you are using correct settings.",
     "error.msg.command.unsupported": "Programmer error: The `command` issued is not supported.",
