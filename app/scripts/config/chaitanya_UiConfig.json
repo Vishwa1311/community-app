@@ -31,8 +31,7 @@
         "loanTermFrequencyType": true,
         "interestChargedFromDate": true,
         "displayName": true,
-        "interestRatePerPeriod": true,
-        "loanPurposeId": true
+        "interestRatePerPeriod": true
       },
       "isAutoPopulate":{
         "interestChargedFromDate": false
@@ -43,7 +42,8 @@
         "paymentTypeId": 750
       },
       "isMandatory":{
-        "repaymentsStartingFromDate":true
+        "repaymentsStartingFromDate":true,
+        "loanPurposeId": true
       }
     },
     "viewLoanAccountDetails":{
