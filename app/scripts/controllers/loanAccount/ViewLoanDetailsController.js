@@ -176,7 +176,7 @@
 
             var multiTranchDataRequest = "multiDisburseDetails";
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations: multiTranchDataRequest,isFetchSpecificData: true}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations: multiTranchDataRequest}, function (data) {
                 scope.loandetails = data;
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
