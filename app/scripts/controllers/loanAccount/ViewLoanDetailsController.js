@@ -451,13 +451,16 @@
                 if(associations === 'repaymentSchedule'){
                     associations = "repaymentSchedule,futureSchedule,originalSchedule";
                 }
+                if(associations === 'multiDisburseDetails'){
+                    associations = "multiDisburseDetails,emiAmountVariations";
+                }
                 if((associations === 'repaymentSchedule'  || associations === 'repaymentSchedule,futureSchedule,originalSchedule' )&& scope.isRepaymentSchedule === true){
                     scope.isDataAlreadyFetched = true;
                 }else if(associations === 'transactions' && scope.istransactions === true){
                     scope.isDataAlreadyFetched = true;
                 }else if(associations === 'collateral' && scope.iscollateral === true){
                     scope.isDataAlreadyFetched = true;
-                }else if(associations === 'multiDisburseDetails' && scope.isMultiDisburseDetails === true){
+                }else if(associations === 'multiDisburseDetails,emiAmountVariations' && scope.isMultiDisburseDetails === true){
                     scope.isDataAlreadyFetched = true;
                 }else if(associations === 'interestRatesPeriods' && scope.isInterestRatesPeriods === true){
                     scope.isDataAlreadyFetched = true;
@@ -479,9 +482,10 @@
                         }else if(associations === 'collateral'){
                             scope.iscollateral = true;
                             scope.loandetails.collateral = scope.loanSpecificData.collateral;
-                        }else if(associations === 'multiDisburseDetails'){
+                        }else if(associations === 'multiDisburseDetails,emiAmountVariations'){
                             scope.isMultiDisburseDetails = true;
                             scope.loandetails.disbursementDetails = scope.loanSpecificData.disbursementDetails;
+                            scope.loandetails.emiAmountVariations = scope.loanSpecificData.emiAmountVariations;
                         }else if(associations === 'interestRatesPeriods'){
                             scope.isInterestRatesPeriods = true;
                             scope.loandetails.interestRatesPeriods = scope.loanSpecificData.interestRatesPeriods;
