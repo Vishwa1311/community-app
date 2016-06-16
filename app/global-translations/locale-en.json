@@ -1447,6 +1447,7 @@
     "label.input.isfloatingrate": "Is Floating Rate?",
     "label.input.installmentinmultiplesof":"Installment in multiples of",
     "label.input.candefineinstallmentamount":"Allow fixing of the installment amount",
+    "label.input.closeLoanOnOverpayment":"Close Loan On Over Payment",
     "label.input.preclose.interest.calculation.strategy":"Pre-closure interest calculation rule",
     "loanPreClosureInterestCalculationStrategy.tillPreClosureDate":"Calculate till pre closure date",
     "loanPreClosureInterestCalculationStrategy.tillRestFrequencyDate":"Calculate till rest frequency date",
