@@ -669,14 +669,19 @@
     </div>
 </div>
 
-<div class="form-group">
-    <div class="col-sm-3">
-        <input type="checkbox" name="name1" ng-model="formData.allowVariableInstallments"/>
-        {{'label.input.isvariableinstallmentsallowed' | translate}}
-        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.variableinstallments' | translate}}"
-           tooltip-append-to-body="true"></i>
+
+    <div class="form-group">
+        <label class="control-label col-sm-4">{{'label.input.isvariableinstallmentsallowed'
+            | translate }}<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.variableinstallments' | translate}}"
+                                   tooltip-append-to-body="true"></i></label>
+
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input id="allowVariableInstallments" type="checkbox"
+                       ng-model="formData.allowVariableInstallments">
+            </label>
+        </div>
     </div>
-</div>
 
 <div class="form-group" ng-show="formData.allowVariableInstallments">
     <label class="control-label col-sm-2">{{ 'label.input.variableinstallments' | translate }}
@@ -702,6 +707,19 @@
            tooltip-append-to-body="true"></i>
     </div>
 </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-4">{{'label.input.syncExpectedWithDisbursementDate'
+            | translate }} <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.syncExpectedWithDisbursementDate' | translate}}"
+                              tooltip-append-to-body="true"></i></label>
+
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input id="syncExpectedWithDisbursementDate" type="checkbox"
+                       ng-model="formData.syncExpectedWithDisbursementDate">
+            </label>
+        </div>
+    </div>
 
 <h3>{{ 'label.heading.interestRecalculation' | translate }}</h3>
 <hr>
