@@ -239,10 +239,18 @@
     <td>{{'label.input.candefineinstallmentamount' | translate}}</td>
     <td colspan="3">{{loanproduct.canDefineInstallmentAmount | YesOrNo}}</td>
 </tr>
+
     <tr>
         <td>{{'label.input.closeLoanOnOverpayment' | translate}}</td>
         <td colspan="3">{{loanproduct.closeLoanOnOverpayment | YesOrNo}}</td>
     </tr>
+
+
+<tr>
+    <td>{{'label.input.syncExpectedWithDisbursementDate' | translate}}</td>
+    <td colspan="3">{{loanproduct.syncExpectedWithDisbursementDate | YesOrNo}}</td>
+</tr>
+
 <tr ng-show="loanproduct.allowVariableInstallments">
     <td>{{'label.input.variableinstallments' | translate}}</td>
     <td colspan="3">(Min:{{loanproduct.minimumGap}}&nbsp;, Max:{{loanproduct.maximumGap}})
