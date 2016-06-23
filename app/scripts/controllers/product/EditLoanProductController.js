@@ -88,7 +88,9 @@
                     principalThresholdForLastInstallment: scope.product.principalThresholdForLastInstallment,
                     installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
+                    syncExpectedWithDisbursementDate : scope.product.syncExpectedWithDisbursementDate,
                     closeLoanOnOverpayment : scope.product.closeLoanOnOverpayment
+
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {

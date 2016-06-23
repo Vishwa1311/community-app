@@ -1467,6 +1467,7 @@
     "label.input.rejectedOnDate": "Rejected On",
     "label.input.submittedOnDate" : "Submitted On",
     "label.input.installmentOn" : "Reschedule from Installment On",
+    "label.input.syncExpectedWithDisbursementDate":" Validate Actual Disbursement Date Against Expected Disbursement Date?",
 
     "#Buttons": "..",
     "label.button.addloancharge": "Add Loan Charge",
@@ -1554,6 +1555,7 @@
     "label.tooltip.loanproduct.interestratecyclevariations": "These fields are used to define the minimum, default, maximum, and period for the nominal interest rate allowed for the loan product based on the Loan Cycle. The minimum, default, and maximum nominal interest rates are expressed as percentages.",
     "label.tooltip.loanproduct.floatinginterestrate": "These fields are used to define the minimum, default, maximum, and period for the floating interest rate allowed for the loan product. The minimum, default, and maximum floating interest rates are expressed as percentages.",
     "label.tooltip.loanproduct.variableinstallments": "These fields are used to define the minimum, maximum gap that should be present between the installments for the loan product",
+    "label.tooltip.loanproduct.syncExpectedWithDisbursementDate": "Validating actual disbursement date with expected disbursement date",
 
     "#tool tip for new loan account":"..",
     "label.tooltip.product":"The name of the loan product that the loan account is based upon",
