@@ -15,6 +15,13 @@
             scope.pvFlag = false;
             scope.rvFlag = false;
 
+            scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
+            scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+            scope.minDurationType = [
+                {id :'1',name:"DAYS"},
+                {id :'2',name:"REPAYMENT"}
+            ];
+            scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue = scope.minDurationType[0];
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -37,6 +44,16 @@
                     {
                         scope.overduecharges.push(scope.penaltyOptions[i]);
                     }
+                }
+                if (scope.product.minimumDaysBetweenDisbursalAndFirstRepayment){
+                    scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue = scope.minDurationType[0];
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+                }
+                else{
+                    scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue = scope.minDurationType[1];
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
                 }
                 scope.formData = {
                     name: scope.product.name,
@@ -84,13 +101,15 @@
                     daysInMonthType: scope.product.daysInMonthType.id,
                     isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
                     holdGuaranteeFunds:scope.product.holdGuaranteeFunds,
-                    minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
                     principalThresholdForLastInstallment: scope.product.principalThresholdForLastInstallment,
                     installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
                     syncExpectedWithDisbursementDate : scope.product.syncExpectedWithDisbursementDate,
-                    closeLoanOnOverpayment : scope.product.closeLoanOnOverpayment
-
+                    closeLoanOnOverpayment : scope.product.closeLoanOnOverpayment,
+                    minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
+                    minimumPeriodsBetweenDisbursalAndFirstRepayment: scope.product.minimumPeriodsBetweenDisbursalAndFirstRepayment,
+                    minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType : scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue.id,
+                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
@@ -222,7 +241,16 @@
                 scope.formData.minimumGap = scope.product.minimumGap;
                 scope.formData.maximumGap = scope.product.maximumGap;
             });
-
+            scope.variableName = function(minDurationType){
+                if(minDurationType == 1){
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
+                }
+                if(minDurationType == 2){
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+                }
+            };
             scope.chargeSelected = function (chargeId) {
                 if(chargeId){
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
@@ -474,6 +502,22 @@
 
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
+                }
+                //
+                if(this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1){
+                    this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
+                }
+                if(this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2){
+                    this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
+                }
+                if(this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2 ){
+                    this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
+                }
+                if(this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1 ){
+                    this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
+                }
+                if(this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType){
+                    delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
                 }
 
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
