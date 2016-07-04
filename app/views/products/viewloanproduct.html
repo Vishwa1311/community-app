@@ -169,9 +169,13 @@
     <td>{{borrowerCycleVariation.defaultValue}}</td>
     <td>{{borrowerCycleVariation.maxValue}}</td>
 </tr>
-<tr>
+<tr ng-show="minimumDaysBetweenDisbursalAndFirstRepaymentShow">
     <td>{{'label.input.minimum.days.between.disbursal.and.first.repayment' | translate}}</td>
-    <td colspan="3">{{loanproduct.minimumDaysBetweenDisbursalAndFirstRepayment}}</td>
+    <td colspan="3">{{loanproduct.minimumDaysBetweenDisbursalAndFirstRepayment}}<span>:&nbsp;{{'label.heading.days' | translate}}</span></td>
+</tr>
+<tr ng-show="minimumPeriodsBetweenDisbursalAndFirstRepaymentShow">
+    <td>{{'label.input.minimum.period.between.disbursal.and.first.repayment' | translate}}</td>
+    <td colspan="3">{{loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment}}<span>:&nbsp;{{'label.repayment.heading.period' | translate}}</span></td>
 </tr>
 <tr>
     <td colspan="4"><br/></td>

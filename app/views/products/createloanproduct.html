@@ -467,14 +467,31 @@
         <form-validate valattributeform="createloanproductform" valattribute="repaymentEvery"/>
     </div>
 </div>
+    
 <div class="form-group">
-    <label class="control-label col-sm-2">{{ 'label.input.minimum.days.between.disbursal.and.first.repayment'
-        | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.minimum.duration.between.disbursal.and.first.repayment' | translate }}
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
 
     <div class="col-sm-2">
-        <input id="minimumDaysBetweenDisbursalAndFirstRepayment" class="form-control"
-               type="text" ng-model="formData.minimumDaysBetweenDisbursalAndFirstRepayment">
+        <select class="form-control input-xlarge"  ng-model="formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType"
+                ng-options="o.id as o.name for o in minDurationType"  value="{{minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType.id}}"
+                ng-change="variableName(formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType)">
+                <option value="">--{{'label.menu.durationType' | translate}}--</option>
+        </select>
     </div>
+    <div class="col-sm-2" ng-show="minimumDaysBetweenDisbursalAndFirstRepaymentShow">
+        <input id="minimumDaysBetweenDisbursalAndFirstRepayment" class="form-control"
+               placeholder="{{'label.input.number.of.days' | translate}}"
+               type="text"   ng-model="formData.minimumDaysBetweenDisbursalAndFirstRepayment">
+    </div>
+    <div class="col-sm-2" ng-show="minimumPeriodsBetweenDisbursalAndFirstRepaymentshow">
+        <input id="minimumPeriodsBetweenDisbursalAndFirstRepayment" class="form-control"
+               placeholder="{{'label.input.number.of.repayment' | translate}}"
+               type="text"   ng-model="formData.minimumPeriodsBetweenDisbursalAndFirstRepayment">
+    </div>
+
 </div>
 <h3>{{ 'label.heading.settings' | translate }}</h3>
 <hr>

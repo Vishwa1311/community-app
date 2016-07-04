@@ -29,6 +29,13 @@
             scope.repaymentFrequency = true;
             scope.transactionProcessingStrategy = true;
             scope.allowAttributeConfiguration = true;
+            scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
+            scope.minDurationType = [
+                    {id :'1',name:"DAYS"},
+                    {id :'2',name:"REPAYMENT"}
+                ]
+            scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+            scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -75,6 +82,16 @@
                 scope.formData.allowVariableInstallments = false ;
             });
 
+            scope.variableName = function(minDurationType){
+                if(minDurationType == 1){
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
+                }
+                if(minDurationType == 2){
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = true;
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+                }
+            };
             scope.chargeSelected = function (chargeId) {
 
                 if (chargeId) {
@@ -336,6 +353,17 @@
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
 
+                if(this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType){
+                    delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
+                }
+
+                if(this.formData.minimumDaysBetweenDisbursalAndFirstRepayment){
+                    delete this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment;
+                }
+
+                if(this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment){
+                    delete this.formData.minimumDaysBetweenDisbursalAndFirstRepayment;
+                }
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });
