@@ -35,7 +35,12 @@
                     "VillageStatusType.approved": "statusApproved",
                     "pledgeStatusType.initiated" : "statusInitiated",
                     "pledgeStatusType.active" : "statusactive",
-                    "pledgeStatusType.closed" : "statusclosed"
+                    "pledgeStatusType.closed" : "statusclosed",
+                    "loanApplication.created": "statuscreated",
+                    "loanApplication.in.approve.stage" : "statuspending",
+                    "loanApplication.approved": "statusApproved",
+                    "loanApplication.active": "statusactive",
+                    "loanApplication.rejected":"statusrejected"
                 }
 
                 return cssClassNameLookup[input];

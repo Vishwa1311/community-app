@@ -17,6 +17,9 @@
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
+            scope.routeToLoanApplication = function (loanAppData) {
+                location.path('/viewloanapplicationreference/' + loanAppData.loanApplicationReferenceId);
+            };
             scope.routeToChargeOverview = function () {
                 location.path(scope.pathToChargeOverview());
             };
@@ -141,6 +144,10 @@
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
                     scope.clientdatatables = data;
+                });
+
+                resourceFactory.loanApplicationReferencesResource.getByClientId({clientId: routeParams.id}, function (data) {
+                    scope.loanApplications = data;
                 });
 
                 resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
@@ -499,6 +506,15 @@
                 }
             };
 
+            scope.loanAppStatusId = 400;
+            scope.isLoanAppIncompleted = function (loanAddData) {
+                if (loanAddData.status.id < scope.loanAppStatusId) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
             scope.isSavingNotClosed = function (savingaccount) {
                 if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
                     savingaccount.status.code === "savingsAccountStatusType.closed" ||
@@ -622,6 +638,14 @@
 
             };
 
+            scope.requestApprovalLoanAppRef = function (loanApplicationReferenceId) {
+                resourceFactory.loanApplicationReferencesResource.update({
+                    loanApplicationReferenceId: loanApplicationReferenceId,
+                    command: 'requestforapproval'
+                }, {}, function (data) {
+                    location.path('/viewloanapplicationreference/' + loanApplicationReferenceId);
+                });
+            };
         }
     });
 
