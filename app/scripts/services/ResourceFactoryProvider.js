@@ -163,6 +163,16 @@
                     batchResource: defineResource(apiVer + "/batches", {}, { 
                         post: {method: 'POST', params: {}, isArray: true}                       
                     }),
+                    loanApplicationReferencesResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                        getByClientId: {method: 'GET', params: {}, isArray: true},
+                        getByLoanAppId: {method: 'GET', params: {}},
+                        getChargesByLoanAppId: {method: 'GET', params: {}, isArray: true},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    loanApplicationReferencesTemplateResource: defineResource(apiVer + "/loanapplicationreferences/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId'}, {
                         getAllLoans: {method: 'GET', params: {}},
                         getAllNotes: {method: 'GET', params: {}, isArray: true},
