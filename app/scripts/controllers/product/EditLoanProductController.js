@@ -14,7 +14,6 @@
             scope.irFlag = false;
             scope.pvFlag = false;
             scope.rvFlag = false;
-
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minDurationType = [
@@ -22,6 +21,7 @@
                 {id :'2',name:"REPAYMENT"}
             ];
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue = scope.minDurationType[0];
+            scope.loanTenureFrequencyType = -1;
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -55,6 +55,9 @@
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
                 }
+                if(scope.product.loanTenureFrequencyType.id != null){
+                    scope.loanTenureFrequencyType = scope.product.loanTenureFrequencyType.id;
+                }
                 scope.formData = {
                     name: scope.product.name,
                     shortName: scope.product.shortName,
@@ -73,6 +76,8 @@
                     minNumberOfRepayments: scope.product.minNumberOfRepayments,
                     maxNumberOfRepayments: scope.product.maxNumberOfRepayments,
                     repaymentEvery: scope.product.repaymentEvery,
+                    minLoanTerm : scope.product.minLoanTerm,
+                    maxLoanTerm : scope.product.maxLoanTerm,
                     repaymentFrequencyType: scope.product.repaymentFrequencyType.id,
                     interestRatePerPeriod: scope.product.interestRatePerPeriod,
                     minInterestRatePerPeriod: scope.product.minInterestRatePerPeriod,
@@ -109,6 +114,7 @@
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
                     minimumPeriodsBetweenDisbursalAndFirstRepayment: scope.product.minimumPeriodsBetweenDisbursalAndFirstRepayment,
                     minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType : scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue.id,
+                    loanTenureFrequencyType : scope.loanTenureFrequencyType,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount
                 };
 
@@ -520,6 +526,22 @@
                     delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
                 }
 
+                if(!this.formData.minLoanTerm){
+                    this.formData.minLoanTerm = null;
+                }
+                if(!this.formData.maxLoanTerm){
+                    this.formData.maxLoanTerm = null;
+                }
+                if(!this.formData.minNumberOfRepayments){
+                    this.minNumberOfRepayments = null;
+                }
+                if(!this.formData.maxNumberOfRepayments){
+                    this.maxNumberOfRepayments = null;
+                }
+                if(this.formData.minLoanTerm==null && this.formData.maxLoanTerm== null &&
+                    this.formData.loanTenureFrequencyType != null){
+                    this.formData.loanTenureFrequencyType = null;
+                }
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });

@@ -80,6 +80,7 @@
                 scope.formData.isFloatingInterestRateCalculationAllowed = false ;
                 scope.formData.isLinkedToFloatingInterestRates = false ;
                 scope.formData.allowVariableInstallments = false ;
+                scope.formData.loanTenureFrequencyType = scope.product.repaymentFrequencyType.id;
             });
 
             scope.variableName = function(minDurationType){
@@ -363,6 +364,10 @@
 
                 if(this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment){
                     delete this.formData.minimumDaysBetweenDisbursalAndFirstRepayment;
+                }
+                if(this.formData.minLoanTerm==null && this.formData.maxLoanTerm== null &&
+                    this.formData.loanTenureFrequencyType != null){
+                    this.formData.loanTenureFrequencyType = null;
                 }
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);

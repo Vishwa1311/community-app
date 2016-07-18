@@ -97,6 +97,13 @@
     <td>{{'label.heading.repayevery' | translate}}:</td>
     <td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
 </tr>
+<tr ng-show="(loanproduct.minLoanTerm != null)||(loanproduct.maxLoanTerm != null)">
+    <td>{{'label.heading.loanTerm' | translate}}:</td>
+    <td colspan="3">( Min:{{loanproduct.minLoanTerm}}&nbsp;,
+        Max:{{loanproduct.maxLoanTerm}}),&nbsp;{{loanproduct.loanTenureFrequencyType.value}}
+    </td>
+</tr>
+
 <tr ng-show="!loanproduct.isLinkedToFloatingInterestRates">
     <td>{{'label.heading.nominalinterestrate' | translate}}:</td>
     <td colspan="3">{{loanproduct.interestRatePerPeriod | number}}&nbsp;&nbsp;&nbsp;(
