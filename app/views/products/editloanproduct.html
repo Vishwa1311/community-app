@@ -422,6 +422,31 @@
 	        <form-validate valattributeform="editloanproductform" valattribute="repaymentEvery"/>
 	    </div>
 	</div>
+<div class="form-group">
+	<label class="control-label col-sm-2">{{ 'label.input.loanTerm' | translate }}
+		<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.tenure' | translate}}" tooltip-append-to-body="true"></i>
+	</label>
+	<div class="col-sm-2">
+		<input id="minLoanTerm" placeholder="{{'label.input.minimum' | translate}}" type="text"
+			   class="form-control" number-format ng-model="formData.minLoanTerm">
+	</div>
+	<div class="col-sm-2">
+		<input type="text" placeholder="{{'label.input.maximum' | translate}}" id="maxLoanTerm"
+			   class="form-control" number-format ng-model="formData.maxLoanTerm">
+	</div>
+	<div class="col-sm-2">
+		<select id="loanTenureFrequencyType" class="form-control"
+				ng-model="formData.loanTenureFrequencyType"
+				ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in product.repaymentFrequencyTypeOptions"
+				value="{{repaymentFrequencyType.id}}">
+				<option value="">--{{'label.menu.durationType' | translate}}--</option>
+		</select>
+	</div>
+	<div class="col-sm-2">
+		<form-validate valattributeform="editloanproductform" valattribute="loanTerm"/>
+	</div>
+</div>
+
 	<div class="form-group">
 		<label class="control-label col-sm-2">{{ 'label.input.minimum.duration.between.disbursal.and.first.repayment' | translate }}
 			<i class="icon-question-sign" tooltip="{{'label.tooltip.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType' | translate}}"
