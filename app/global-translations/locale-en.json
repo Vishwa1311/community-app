@@ -381,6 +381,7 @@
     "label.error.LuhnsAlgorithm.checkbitincorrect":"Checkbit is incorrect",
     "label.error.LuhnsAlgorithm.passportnumbervalid":"Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
+
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -911,6 +912,7 @@
     "label.heading.closedby": "Closed By",
     "label.heading.closurecreationdate": "Closure Creation Date",
     "label.heading.transactionnumber": "Transaction Number",
+    "label.heading.entry.created.with.transaction.id": "Entry Created With Transaction Id",
     "label.heading.parentaccountname": "Parent Account Name",
     "label.heading.tag": "Tag",
     "label.heading.accountusage": "Account Usage",
@@ -3338,7 +3340,8 @@
     "validation.msg.recurringdeposit.chart.slabs.range.has.gap":"Period/Amount range has gap for interest rate chart",
     "validation.msg.fixeddeposit.chart.slabs.period.range.start.incorrect":"Period Must start with 1",
     "validation.msg.fixeddeposit.chart.slabs.period.range.end.incorrect":"Period range  must end as open for interest rate chart ",
-
+    "validation.msg.journal.entry.limit.credit.to.one":"multiple credit is not allowed with multiple debit",
+    "validation.msg.journal.entry.limit.debit.to.one":"multiple debit is not allowed with multiple credit",
 
     "#------------------": "------------",
 
