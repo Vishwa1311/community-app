@@ -347,6 +347,9 @@
             .when('/viewtransactions/:transactionId', {
                 templateUrl: 'views/accounting/view_transactions.html'
             })
+            .when('/journalentry/:transactionId', {
+                templateUrl: 'views/accounting/journalentry_posting.html'
+            })
             .when('/journalentry', {
                 templateUrl: 'views/accounting/journalentry_posting.html'
             })
