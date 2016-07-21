@@ -12,7 +12,7 @@
                 if (data.accountingRule.id == 2 || data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccountingEnabled = true;
                 }
-
+                scope.considerFutureDisbursmentsInSchedule = data.considerFutureDisbursmentsInSchedule;
                 if (data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccrualAccountingEnabled = true;
                 }

@@ -36,6 +36,7 @@
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
+                scope.considerFutureDisbursmentsInSchedule = data.productOptions.considerFutureDisbursmentsInSchedule;
                 if (data.clientName) {
                     scope.clientName = data.clientName;
                 }

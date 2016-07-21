@@ -70,6 +70,7 @@
                 scope.formData.daysInYearType = scope.product.daysInYearType.id;
                 scope.formData.daysInMonthType = scope.product.daysInMonthType.id;
                 scope.formData.isInterestRecalculationEnabled = scope.product.isInterestRecalculationEnabled;
+                scope.formData.considerFutureDisbursmentsInSchedule = scope.product.considerFutureDisbursmentsInSchedule;
                 scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
                 scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
                 scope.formData.preClosureInterestCalculationStrategy = scope.product.interestRecalculationData.preClosureInterestCalculationStrategy.id;
@@ -249,7 +250,11 @@
                 scope.penaltyToIncomeAccountMappings = [];
                 scope.chargesSelected = [];
                 scope.selectedConfigurableAttributes = [];
-
+                if(considerFutureDisbursmentsInSchedule.checked == true)
+                scope.formData.considerFutureDisbursmentsInSchedule = true;
+                else{
+                    scope.formData.considerFutureDisbursmentsInSchedule = false;
+                }
                 var temp = '';
 
                 //configure fund sources for payment channels

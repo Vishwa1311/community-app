@@ -32,6 +32,7 @@
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.charges = scope.product.charges || [];
+                scope.considerFutureDisbursmentsInSchedule = data.considerFutureDisbursmentsInSchedule;
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
                 }
@@ -406,6 +407,11 @@
                 scope.selectedConfigurableAttributes = [];
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
+                if(isFutureDisbursementsToBeShown.checked == true)
+                    scope.formData.considerFutureDisbursmentsInSchedule = true;
+                else{
+                    scope.formData.considerFutureDisbursmentsInSchedule = false;
+                }
                 var temp = '';
                 //configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {

@@ -3031,9 +3031,11 @@
     "validation.msg.loanproduct.mandatoryGuarantee.must.be.greter.than.sum.of.min.funds":"Mandatory Guarantee must be greter than sum of minimum guarantee from own funds and guarantor funds",
     "label.input.thresholdforlastinstallment":"Principal Threshold (%) for Last Instalment",
     "label.input.arrearsbasedonoriginalschedule":"Is Arrears recognization based on original schedule",
+    "label.input.enablefuturedisbursement":"Enable future disbursement",
     "label.input.loan.account.moves.out.of.npa.only.on.arrears.completion":"Account moves out of NPA only after all arrears have been cleared?",
     "label.input.number.of.days":"number of days",
     "label.input.number.of.repayment":"number of repayments",
+    "label.input.allow.future.disbursement":"Is Future Disbursements Allowed",
 
     "#Buttons": "..",
     "label.button.createcharge": "Create Charge",
