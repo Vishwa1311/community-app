@@ -31,7 +31,8 @@
         "loanTermFrequencyType": true,
         "interestChargedFromDate": true,
         "displayName": true,
-        "interestRatePerPeriod": true
+        "interestRatePerPeriod": true,
+        "syncRepaymentsWithMeeting" : true
       },
       "isAutoPopulate":{
         "interestChargedFromDate": false
