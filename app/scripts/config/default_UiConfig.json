@@ -38,7 +38,8 @@
 		"interestChargedFromDate": true
 	  },
 	  "isDefaultValue": {
-		"syncDisbursementWithMeeting": false
+		"syncDisbursementWithMeeting": false,
+		"considerFutureDisbursmentsInSchedule": true
 	  }
 	},
 	"collectionSheet": {

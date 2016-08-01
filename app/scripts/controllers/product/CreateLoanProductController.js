@@ -250,7 +250,7 @@
                 scope.penaltyToIncomeAccountMappings = [];
                 scope.chargesSelected = [];
                 scope.selectedConfigurableAttributes = [];
-                if(considerFutureDisbursmentsInSchedule.checked == true)
+                if(considerFutureDisbursmentsInSchedule.checked)
                 scope.formData.considerFutureDisbursmentsInSchedule = true;
                 else{
                     scope.formData.considerFutureDisbursmentsInSchedule = false;

@@ -39,7 +39,8 @@
       },
       "isDefaultValue": {
         "fundId": 45,
-        "syncDisbursementWithMeeting": false
+        "syncDisbursementWithMeeting": false,
+        "considerFutureDisbursmentsInSchedule": true
       }
     },
     "collectionSheet": {
