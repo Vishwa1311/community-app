@@ -32,7 +32,7 @@
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.charges = scope.product.charges || [];
-                scope.considerFutureDisbursmentsInSchedule = data.considerFutureDisbursmentsInSchedule;
+                scope.considerFutureDisbursmentsInSchedule = scope.product.considerFutureDisbursmentsInSchedule;
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
                 }
@@ -407,7 +407,7 @@
                 scope.selectedConfigurableAttributes = [];
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
-                if(isFutureDisbursementsToBeShown.checked == true)
+                if(isFutureDisbursementsToBeShown.checked)
                     scope.formData.considerFutureDisbursmentsInSchedule = true;
                 else{
                     scope.formData.considerFutureDisbursmentsInSchedule = false;
