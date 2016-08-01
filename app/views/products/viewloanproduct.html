@@ -324,6 +324,10 @@
     <td colspan="3">{{loanproduct.interestRecalculationData.isArrearsBasedOnOriginalSchedule | YesOrNo}}</td>
 </tr>
 
+    <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
+        <td>{{'label.input.allow.future.disbursement' | translate}}</td>
+        <td colspan="3">{{considerFutureDisbursmentsInSchedule | YesOrNo}}</td>
+    </tr>
 <tr>
     <td colspan="4"><br/></td>
 </tr>
