@@ -56,7 +56,7 @@
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
                 }
-                if(scope.product.loanTenureFrequencyType.id != null){
+                if(scope.product.loanTenureFrequencyType){
                     scope.loanTenureFrequencyType = scope.product.loanTenureFrequencyType.id;
                 }
                 scope.formData = {
