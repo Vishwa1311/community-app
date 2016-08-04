@@ -1,6 +1,9 @@
+/**
+ * Created by jagadeeshakn on 8/1/2016.
+ */
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateClientController: function (scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
+        ClientCreationController: function (scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
             scope.offices = [];
             scope.staffs = [];
             scope.savingproducts = [];
@@ -86,10 +89,10 @@
                 }
             };
             if(routeParams.groupId) {
-            	scope.cancel = '#/viewgroup/' + routeParams.groupId
-            	scope.groupid = routeParams.groupId;
+                scope.cancel = '#/viewgroup/' + routeParams.groupId
+                scope.groupid = routeParams.groupId;
             }else {
-            	scope.cancel = "#/clients"
+                scope.cancel = "#/clients"
             }
 
             scope.submit = function () {
@@ -140,7 +143,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.CreateClientController]).run(function ($log) {
-        $log.info("CreateClientController initialized");
+    mifosX.ng.application.controller('ClientCreationController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.ClientCreationController]).run(function ($log) {
+        $log.info("ClientCreationController initialized");
     });
 }(mifosX.controllers || {}));
