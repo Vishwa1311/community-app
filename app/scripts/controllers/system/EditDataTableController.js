@@ -102,31 +102,33 @@
                     scope.formData.dropColumns = scope.dropColumns;
                 }
 
-                for (var i in scope.columns) {
+                if(scope.columns && scope.columns.length > 0 ){
+                    scope.reqColumns = angular.copy(scope.columns);
+                    for (var i in scope.reqColumns) {
+                        if (scope.reqColumns[i].originalName) {
+                            //This value should be updated based on the configuration
+                            /*if (scope.reqColumns[i].newName) {
+                             if (scope.reqColumns[i].type == "dropdown") {
+                             scope.reqColumns[i].columnName = scope.reqColumns[i].originalName;
+                             scope.reqColumns[i].newName = scope.reqColumns[i].columnCode + "_cd_" + scope.reqColumns[i].newName;
+                             }
+                             }*/
 
-                    if (scope.columns[i].originalName) {
-                        //This value should be updated based on the configuration
-                        /*if (scope.columns[i].newName) {
-                         if (scope.columns[i].type == "dropdown") {
-                         scope.columns[i].columnName = scope.columns[i].originalName;
-                         scope.columns[i].newName = scope.columns[i].columnCode + "_cd_" + scope.columns[i].newName;
-                         }
-                         }*/
+                            delete scope.reqColumns[i].originalName;
+                            delete scope.reqColumns[i].type;
 
-                        delete scope.columns[i].originalName;
-                        delete scope.columns[i].type;
+                            if (scope.reqColumns[i].code) {
+                                scope.reqColumns[i].newCode = scope.reqColumns[i].newCode || scope.reqColumns[i].code;
+                            }
 
-                        if (scope.columns[i].code) {
-                            scope.columns[i].newCode = scope.columns[i].newCode || scope.columns[i].code;
+                            if (scope.reqColumns[i].name) {
+                                scope.reqColumns[i].newName = scope.reqColumns[i].newName || scope.reqColumns[i].name;
+                            }
+                            scope.formData.changeColumns.push(scope.reqColumns[i]);
+
+                        } else {
+                            scope.formData.addColumns.push(scope.reqColumns[i]);
                         }
-
-                        if (scope.columns[i].name) {
-                            scope.columns[i].newName = scope.columns[i].newName || scope.columns[i].name;
-                        }
-                        scope.formData.changeColumns.push(scope.columns[i]);
-
-                    } else {
-                        scope.formData.addColumns.push(scope.columns[i]);
                     }
                 }
 

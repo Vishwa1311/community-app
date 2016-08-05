@@ -53,10 +53,9 @@
                                ng-model="formDat[columnHeader.columnName].date"
                                is-open="opened{{$index}}" class="form-control"/>
                     </div>
-                    <div class="form-group">
-                        <input type="time" placeholder="HH:MM:SS"
-                               ng-model="formDat[columnHeader.columnName].time" class="form-control"/>
                     </div>
+                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'">
+                    <timepicker ng-model="formDat[columnHeader.columnName].meetingTime" class=""></timepicker>
                 </div>
                 <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
                     <label class="radio-inline">
