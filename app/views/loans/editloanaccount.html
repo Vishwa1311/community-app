@@ -96,7 +96,8 @@
                     {{calendar.humanReadable}}</td>
             </tr>
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
-                <td align="center"><input type="checkbox" ng-model="formData.syncRepaymentsWithMeeting"
+                <td align="center"><input type="checkbox" ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting)"
+                                          ng-model="formData.syncRepaymentsWithMeeting"
                                           ng-change="syncRepaymentsWithMeetingchange()"></td>
                 <td><label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label></td>
                 <td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
@@ -168,7 +169,9 @@
                     <input id="repaymentEvery" class="form-control" type="text" name="repaidevery"
                            ng-model="formData.repaymentEvery" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery" required late-Validate/>
                     <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
-                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery"
+                            ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery)||
+                            (response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{repaymentFrequencyType.id}}"/>&nbsp;
                     <form-validate valattributeform="editloanaccountform" valattribute="repaidevery"/>

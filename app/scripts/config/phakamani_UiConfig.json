@@ -32,7 +32,9 @@
         "interestChargedFromDate": false,
         "displayName": false,
         "interestRatePerPeriod": false,
-        "loanPurposeId": false
+        "loanPurposeId": false,
+        "repaymentFrequencyType": false,
+        "syncRepaymentsWithMeeting": false
       },
       "isAutoPopulate":{
         "interestChargedFromDate": false
