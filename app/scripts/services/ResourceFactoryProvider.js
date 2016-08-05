@@ -602,7 +602,22 @@
                     collateralDetailsResource: defineResource(apiVer + "/pledges/:pledgeId/collateraldetails/:collateralDetailId", {pledgeId:'@pledgeId',
                         collateralDetailId : '@collateralDetailId'}, {
                         delete: {method: 'DELETE', params: {}}
-                    })
+                    }),
+                    addressTemplateResource:defineResource(apiVer +"/clients/addresses/template",{},{
+                        getAddressTemplate:{method: 'GET',parms: {}, isArray: true }
+                    }),
+                    addressResource:defineResource(apiVer+"/:entityType/:entityId/addresses",{entityType: '@entityType',entityId: '@entityId'},{
+                        create:{method: 'POST',parms: {}}
+                    }),
+                    addressDataResource:defineResource(apiVer+"/:entityType/:entityId/addresses",{entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll:{method: 'GET',parms: {}, isArray: true }
+                    }),
+                    entityAddressResource:defineResource(apiVer+"/:entityType/:entityId/addresses/:addressId",{entityType: '@entityType',entityId: '@entityId',addressId: '@addressId'},{
+                    delete: {method: 'DELETE',parms: {}},
+                    update: {method: 'PUT',parms:{}},
+                    getAddress: {method: 'GET',parms:{}}    
+                    }),
+                    
                 };
             }];
         }
