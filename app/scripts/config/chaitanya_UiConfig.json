@@ -32,7 +32,8 @@
         "interestChargedFromDate": true,
         "displayName": true,
         "interestRatePerPeriod": true,
-        "syncRepaymentsWithMeeting" : true
+        "syncRepaymentsWithMeeting" : true,
+        "repaymentFrequencyType": true
       },
       "isAutoPopulate":{
         "interestChargedFromDate": false
