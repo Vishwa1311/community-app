@@ -132,8 +132,13 @@
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName],
                             this.formData.dateFormat);
                     } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
-                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df)
-                        + " " + dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
+                        if(!_.isEmpty(dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df))){
+                            if(scope.formDat[scope.columnHeaders[i].columnName].meetingTime == undefined){
+                                scope.formDat[scope.columnHeaders[i].columnName].meetingTime = new Date();
+                            }
+                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df)
+                         + " " + dateFilter(this.formDat[scope.columnHeaders[i].columnName].meetingTime, scope.tf);
+                         }
                     }
                 }
 

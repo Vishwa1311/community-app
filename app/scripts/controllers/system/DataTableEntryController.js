@@ -141,9 +141,10 @@
                         scope.formDat[scope.columnHeaders[i].columnName] = {};
                         if(scope.columnHeaders[i].value != null) {
                             scope.formDat[scope.columnHeaders[i].columnName] = {
-                                date: dateFilter(new Date(scope.columnHeaders[i].value), scope.df),
-                                time: dateFilter(new Date(scope.columnHeaders[i].value), scope.tf)
+                                date: dateFilter(new Date(scope.columnHeaders[i].value), scope.df)
                             };
+                            scope.formDat[scope.columnHeaders[i].columnName].meetingTime=new Date(scope.columnHeaders[i].value);
+
                         }
                     } else {
                         scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].value;
@@ -227,8 +228,13 @@
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName], this.formData.dateFormat);
                     } else if(scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
-                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df) + " " +
-                        dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
+                        if(!_.isEmpty(dateFilter(scope.formDat[scope.columnHeaders[i].columnName].date, scope.df))) {
+                            if(scope.formDat[scope.columnHeaders[i].columnName].meetingTime == undefined){
+                                scope.formDat[scope.columnHeaders[i].columnName].meetingTime = new Date();
+                            }
+                            this.formData[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat[scope.columnHeaders[i].columnName].date, scope.df)
+                            + " " + dateFilter(scope.formDat[scope.columnHeaders[i].columnName].meetingTime,scope.tf);
+                        }
                     }
                 }
                 resourceFactory.DataTablesResource.update(reqparams, this.formData, function (data) {
