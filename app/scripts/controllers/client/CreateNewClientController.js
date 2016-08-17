@@ -22,6 +22,12 @@
             scope.formAddressData = {};
             scope.formDataList = [scope.formAddressData];
             scope.formAddressData.addressTypes = [];
+            scope.configurations = [];
+            scope.enableClientAddress = false;
+            scope.addressFromVillages = false;
+            scope.villages = [];
+            scope.village = {};
+            scope.formAddressData.districtId ;
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -67,12 +73,33 @@
                     }
                 }
             });
+            var addressConfig = 'enable-clients-address';
+            resourceFactory.configurationResource.get({configName: addressConfig}, function (response) {
+                if (response.enabled == true) {
+                    scope.enableClientAddress = true;
+                    resourceFactory.villageResource.getAllVillages({officeId:routeParams.officeId},function (data) {
+                        scope.villages = data;
+                    });
+                    resourceFactory.addressTemplateResource.get({}, function (data) {
+                        scope.addressType = data.addressTypeOptions;
+                        scope.countries = data.countryDatas;
+                        scope.setDefaultGISConfig();
+                    });
 
-            resourceFactory.addressTemplateResource.get({},function (data) {
-                scope.addressType = data.addressTypeOptions;
-                scope.countries = data.countryDatas;
-                scope.setDefaultGISConfig();
+                } else {
+                    scope.enableClientAddress = false;
+                }
+
             });
+            var villageConfig = 'populate_address_from_villages';
+            resourceFactory.configurationResource.get({configName: villageConfig}, function (response) {
+                if (response.enabled == true){
+                    scope.addressFromVillages = true;
+                }else {
+                    scope.addressFromVillages = false;
+                }
+
+                });
 
             scope.setDefaultGISConfig = function () {
                 if(scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address){
@@ -130,6 +157,39 @@
             	scope.groupid = routeParams.groupId;
             }else {
             	scope.cancel = "#/clients"
+            }
+
+            scope.changeVillage = function (villageId) {
+                if(villageId != null){
+                    scope.formAddressData.taluka = null;
+                    scope.formAddressData.postalCode = null;
+                    scope.districts = null;
+                    resourceFactory.villageResource.get({villageId:villageId},function (response) {
+                        if (response.addressData.length > 0) {
+                            if (response.addressData[0].taluka) {
+                                scope.formAddressData.taluka = response.addressData[0].taluka;
+                            }
+                            if (response.addressData[0].countryData) {
+                                scope.formAddressData.countryId = response.addressData[0].countryData.countryId;
+                            }
+                            if (response.addressData[0].stateData) {
+                                scope.states = response.addressData[0].countryData.statesDatas;
+                                scope.formAddressData.stateId = response.addressData[0].stateData.stateId;
+                            }
+                            if (response.addressData[0].districtData) {
+                                scope.districts = response.addressData[0].stateData.districtDatas;
+                                scope.formAddressData.districtId = response.addressData[0].districtData.districtId;
+                            }
+
+                            if (response.addressData[0].postalCode) {
+                                scope.formAddressData.postalCode = response.addressData[0].postalCode;
+                            }
+                        }
+                    });
+
+                }
+
+
             }
 
             scope.changeCountry = function (countryId) {
@@ -201,6 +261,15 @@
                 }
                 if (scope.formAddressData.districtId == null || scope.formAddressData.districtId == ""){
                     delete scope.formAddressData.districtId;
+                }
+                if (scope.formAddressData.addressTypes == null || scope.formAddressData.addressTypes == "") {
+                    delete scope.formAddressData.addressTypes;
+                }
+                if (scope.formAddressData.houseNo == null || scope.formAddressData.houseNo == "") {
+                    delete scope.formAddressData.houseNo;
+                }
+                if (scope.formAddressData.addressLineOne == null || scope.formAddressData.addressLineOne == "") {
+                    delete scope.formAddressData.addressLineOne;
                 }
 
                 this.formData.addresses=scope.formDataList;

@@ -13,39 +13,30 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    {{'label.input.addresstype' | translate}}<span class="required">*</span>
+                    {{'label.input.addresstype' | translate}}
                 </label>
 
                 <div class="col-sm-3">
                     <select chosen="addressType" id="addressId" name="addressType" ng-model="addressTypeId"  class="form-control"
-                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}" required late-validate>
+                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}">
                             <option value="">{{'label.menu.addressType' | translate}}</option>
                     </select>
                 </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="editaddressform" valattribute="addressType"/>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-2"  for="streetname">{{'label.input.streetname' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" required late-Validate/>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="editaddressform" valattribute="houseNo"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-2"  for="streetname">{{'label.input.streetname' | translate}}<span class="required">*</span></label>
-
-                <div class="col-sm-3">
-                    <input type="text" id="streetname" name="streetName" ng-model="formData.addressLineOne"  class="form-control" required late-validate/>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="editaddressform" valattribute="streetName"/>
+                    <input type="text" id="streetname" name="streetName" ng-model="formData.addressLineOne"  class="form-control"/>
                 </div>
             </div>
 
@@ -110,14 +101,10 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode"  ng-pattern="/^[0-9]+$/"  class="form-control" required late-validate/>
-                </div>
-
-                <div class="col-sm-2">
-                    <form-validate valattributeform="editaddressform" valattribute="pincode"/>
+                    <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode" class="form-control"/>
                 </div>
             </div>
 

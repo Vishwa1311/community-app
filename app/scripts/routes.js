@@ -686,8 +686,14 @@
             .when('/createvillage', {
                 templateUrl: 'views/villages/createvillage.html'
             })
+            .when('/addvillageAddress/:id', {
+                templateUrl: 'views/villages/addvillageaddress.html'
+            })
             .when('/editvillage/:id', {
                 templateUrl: 'views/villages/editvillage.html'
+            })
+            .when('/editvillageaddress/:id/:addressId', {
+                templateUrl: 'views/villages/editvillageaddress.html'
             })
             .when('/createcharge', {
                 templateUrl: 'views/products/createcharge.html'

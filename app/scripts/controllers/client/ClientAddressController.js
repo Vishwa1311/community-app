@@ -12,11 +12,26 @@
             scope.formData = {};
             scope.formDataList = [scope.formData];
             scope.formData.addressTypes = [];
+            scope.addressFromVillages = false;
 
             resourceFactory.addressTemplateResource.get({}, function (data) {
                 scope.addressType = data.addressTypeOptions;
                 scope.countries = data.countryDatas;
                 scope.setDefaultGISConfig();
+            });
+
+            resourceFactory.villageResource.getAllVillages({officeId:routeParams.officeId},function (data) {
+                scope.villages = data;
+            });
+
+            var villageConfig = 'populate_address_from_villages';
+            resourceFactory.configurationResource.get({configName: villageConfig}, function (response) {
+                if (response.enabled == true){
+                    scope.addressFromVillages = true;
+                }else {
+                    scope.addressFromVillages = false;
+                }
+
             });
 
             scope.setDefaultGISConfig = function () {
@@ -74,7 +89,37 @@
                 }
             }
 
-            scope.submit = function () {
+            scope.changeVillage = function (villageId) {
+                if (villageId != null) {
+                    scope.formData.taluka = null;
+                    scope.formData.postalCode = null;
+                    scope.districts = null;
+                    resourceFactory.villageResource.get({villageId: villageId}, function (response) {
+                        if (response.addressData.length > 0) {
+                            if (response.addressData[0].taluka) {
+                                scope.formData.taluka = response.addressData[0].taluka;
+                            } 
+                            if (response.addressData[0].countryData) {
+                                scope.formData.countryId = response.addressData[0].countryData.countryId;
+                            }
+                            if (response.addressData[0].stateData) {
+                               scope.states = response.addressData[0].countryData.statesDatas;
+                                scope.formData.stateId = response.addressData[0].stateData.stateId;
+                            }
+                            if (response.addressData[0].districtData) {
+                                scope.districts = response.addressData[0].stateData.districtDatas;
+                                scope.formData.districtId = response.addressData[0].districtData.districtId;
+                            }
+                            if (response.addressData[0].postalCode) {
+                                scope.formData.postalCode = response.addressData[0].postalCode;
+                            }
+                        }
+
+                    });
+                }
+            }
+
+                scope.submit = function () {
 
                 scope.entityType = "clients";
                 scope.formData.locale = scope.optlang.code;
@@ -89,6 +134,15 @@
                 if (scope.formData.districtId == null || scope.formData.districtId == ""){
                     delete scope.formData.districtId;
                 }
+                    if (scope.formData.addressTypes == null || scope.formData.addressTypes == "") {
+                        delete scope.formData.addressTypes;
+                    }
+                    if (scope.formData.houseNo == null || scope.formData.houseNo == "") {
+                        delete scope.formData.houseNo;
+                    }
+                    if (scope.formData.addressLineOne == null || scope.formData.addressLineOne == "") {
+                        delete scope.formData.addressLineOne;
+                    }
                 resourceFactory.addressResource.create({entityType:scope.entityType,entityId :scope.clientId }, {addresses: scope.formDataList}, function (data) {
 
                     location.path('/viewclient/' + scope.clientId);

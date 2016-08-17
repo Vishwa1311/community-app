@@ -133,6 +133,7 @@
     "label.heading.districtname":"District",
     "label.heading.pincode":"Pincode",
 
+
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
     "label.menu.selectone": "Select One",
@@ -143,6 +144,7 @@
     "label.menu.selectCountry":"Select Country",
     "label.menu.selectState":"Select State",
     "label.menu.selectDistrict":"Select District",
+    "label.menu.selectVillages":"Select Village",
 
     "#Anchors": "..",
     "label.anchor.delete": "Delete",
@@ -219,6 +221,7 @@
     "label.input.statename":"State",
     "label.input.districtname":"District",
     "label.input.pincode":"Pincode",
+    "label.input.villages":"Villages",
 
     "#Buttons": "..",
     "label.button.previous": "Previous",
@@ -892,6 +895,11 @@
     "label.heading.state": "State",
     "label.heading.activationDate": "Activation Date",
     "label.heading.submittedDate": "Submitted Date",
+    "label.heading.basicdetails":"Basic Details",
+    "label.heading.addressdetails":"Address Details",
+    "label.heading.addvillageaddress": "Add village Address",
+    "label.heading.editvillageaddress": "Edit village Address",
+
 
     "#Inputs": "..",
     "label.input.name": "Name",
@@ -907,10 +915,13 @@
     "label.anchor.villages": "Villages",
     "label.anchor.viewvillage": "View Village",
     "label.anchor.createvillage": "Create Village",
+    "label.anchor.villageaddress": "Add Village Address",
     "label.anchor.editvillage": "Edit Village",
+    "label.anchor.editvillageaddress": "Edit Village Address",
 
     "#Buttons": "..",
     "label.button.createvillage": "Create Village",
+    "label.button.addaddress":"Address",
 
     "#Accounting": "....",
 
@@ -2780,6 +2791,8 @@
     "label.tooltip.global.restrict-products-to-user-office":"This term is waiting for a professional definition.",
     "label.tooltip.global.meetings-mandatory-for-jlg-loans":"This term is waiting for a professional definition.",
     "label.tooltip.global.organisation-start-date":"Determine organisation start date.",
+    "label.tooltip.global.enable-clients-address":" Enable Create client with address",
+    "label.tooltip.global.populate_address_from_villages":"Populate the address fields from villages",
 
 
     "#----------------": "------------",
