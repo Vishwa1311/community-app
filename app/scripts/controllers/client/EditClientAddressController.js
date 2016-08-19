@@ -15,7 +15,10 @@
             scope.entityType="clients";
 
             resourceFactory.entityAddressResource.getAddress({entityType: scope.entityType, entityId: scope.clientId, addressId: scope.addressId}, function (data) {
-                scope.addressTypeId = data.addressEntityData[0].addressType.id;
+
+                if(data.addressEntityData[0].addressType) {
+                    scope.addressTypeId = data.addressEntityData[0].addressType.id;
+                }
                 
                 if(data.houseNo){
                     scope.formData.houseNo =  data.houseNo;

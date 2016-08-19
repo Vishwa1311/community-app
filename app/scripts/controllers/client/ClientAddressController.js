@@ -91,11 +91,15 @@
 
             scope.changeVillage = function (villageId) {
                 if (villageId != null) {
+                    scope.formData.villageTown =null;
                     scope.formData.taluka = null;
                     scope.formData.postalCode = null;
                     scope.districts = null;
                     resourceFactory.villageResource.get({villageId: villageId}, function (response) {
                         if (response.addressData.length > 0) {
+                            if(response.villageName){
+                                scope.formData.villageTown = response.villageName;
+                            }
                             if (response.addressData[0].taluka) {
                                 scope.formData.taluka = response.addressData[0].taluka;
                             } 
