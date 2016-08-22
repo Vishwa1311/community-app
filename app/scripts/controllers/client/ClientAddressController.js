@@ -9,6 +9,7 @@
             scope.countrys = [];
             scope.states = [];
             scope.districts = [];
+            scope.talukas = [];
             scope.formData = {};
             scope.formDataList = [scope.formData];
             scope.formData.addressTypes = [];
@@ -20,11 +21,11 @@
                 scope.setDefaultGISConfig();
             });
 
-            resourceFactory.villageResource.getAllVillages({officeId:routeParams.officeId},function (data) {
+            resourceFactory.villageResource.getAllVillages({officeId: routeParams.officeId},function (data) {
                 scope.villages = data;
             });
 
-            var villageConfig = 'populate_address_from_villages';
+            var villageConfig = 'populate_client_address_from_villages';
             resourceFactory.configurationResource.get({configName: villageConfig}, function (response) {
                 if (response.enabled == true){
                     scope.addressFromVillages = true;
@@ -72,6 +73,9 @@
                     if (scope.formData.districtId) {
                         delete scope.formData.districtId;
                     }
+                    if(scope.formData.talukaId){
+                        delete scope.formData.talukaId;
+                    }
 
                     scope.states = scope.selectCountry[0].statesDatas;
                 }
@@ -85,14 +89,29 @@
                     if (scope.formData.districtId) {
                         delete scope.formData.districtId;
                     }
+                    if(scope.formData.talukaId){
+                        delete scope.formData.talukaId;
+                    }
                     scope.districts = scope.selectState[0].districtDatas;
+                }
+            }
+            scope.changeDistrict = function (districtId) {
+                if (districtId != null) {
+                    scope.selectDistrict = _.filter(scope.districts, function (districts) {
+                        return districts.districtId == districtId;
+                    })
+
+                    if(scope.formData.talukaId){
+                        delete scope.formData.talukaId;
+                    }
+                    scope.talukas = scope.selectDistrict[0].talukaDatas;
                 }
             }
 
             scope.changeVillage = function (villageId) {
                 if (villageId != null) {
                     scope.formData.villageTown =null;
-                    scope.formData.taluka = null;
+                    scope.talukas = null;
                     scope.formData.postalCode = null;
                     scope.districts = null;
                     resourceFactory.villageResource.get({villageId: villageId}, function (response) {
@@ -100,9 +119,6 @@
                             if(response.villageName){
                                 scope.formData.villageTown = response.villageName;
                             }
-                            if (response.addressData[0].taluka) {
-                                scope.formData.taluka = response.addressData[0].taluka;
-                            } 
                             if (response.addressData[0].countryData) {
                                 scope.formData.countryId = response.addressData[0].countryData.countryId;
                             }
@@ -113,6 +129,10 @@
                             if (response.addressData[0].districtData) {
                                 scope.districts = response.addressData[0].stateData.districtDatas;
                                 scope.formData.districtId = response.addressData[0].districtData.districtId;
+                            }
+                            if (response.addressData[0].talukaData) {
+                                scope.talukas = response.addressData[0].districtData.talukaDatas;
+                                scope.formData.talukaId = response.addressData[0].talukaData.talukaId;
                             }
                             if (response.addressData[0].postalCode) {
                                 scope.formData.postalCode = response.addressData[0].postalCode;
@@ -138,6 +158,9 @@
                 if (scope.formData.districtId == null || scope.formData.districtId == ""){
                     delete scope.formData.districtId;
                 }
+                    if (scope.formData.talukaId == null || scope.formData.talukaId == ""){
+                        delete scope.formData.talukaId;
+                    }
                     if (scope.formData.addressTypes == null || scope.formData.addressTypes == "") {
                         delete scope.formData.addressTypes;
                     }
