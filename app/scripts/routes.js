@@ -124,7 +124,7 @@
             .when('/addclientidentifierdocument/:clientId/:resourceId', {
                 templateUrl: 'views/clients/addclientidentifierdocument.html'
             })
-            .when('/addclientaddress/:clientId', {
+            .when('/addclientaddress/:officeId/:clientId', {
                 templateUrl: 'views/clients/addclientaddress.html'
             })
             .when('/editaddress/:clientId/:addressId', {

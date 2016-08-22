@@ -49,14 +49,6 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="talukname">{{'label.input.talukname' | translate}}</label>
-
-                <div class="col-sm-3">
-                    <input type="text" id="talukname" ng-model="formAddressData.taluka"  class="form-control"/>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="control-label col-sm-2">
                     {{'label.input.countryname' | translate}}
                 </label>
@@ -90,8 +82,21 @@
 
                 <div class="col-sm-3">
                     <select chosen="districts" id="districtId" ng-model="formAddressData.districtId"  class="form-control"
-                            ng-options="district.districtId as district.districtName for district in districts" value="{{district.districtId}}">
+                            ng-options="district.districtId as district.districtName for district in districts" value="{{district.districtId}}"
+                            ng-change="changeDistrict(formAddressData.districtId)">
                         <option value="">{{'label.menu.selectDistrict' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.talukname' | translate}}
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="talukas" id="talukaId" ng-model="formAddressData.talukaId"
+                            ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
+                            value="{{taluka.talukaId}}" >
+                        <option value="">{{'label.menu.selectTaluka' | translate}}</option>
                     </select>
                 </div>
             </div>

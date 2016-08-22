@@ -11,6 +11,7 @@
             scope.countrys = [];
             scope.states = [];
             scope.districts = [];
+            scope.talukas = [];
             scope.formAddressData = {};
             scope.formDataList = [scope.formAddressData];
 
@@ -70,6 +71,8 @@
                     }
 
                     scope.states = scope.selectCountry[0].statesDatas;
+                    scope.districts = null;
+                    scope.talukas = null;
                 }
             }
 
@@ -82,6 +85,19 @@
                         delete scope.formAddressData.districtId;
                     }
                     scope.districts = scope.selectState[0].districtDatas;
+                    scope.talukas = null;
+                }
+            }
+            scope.changeDistrict = function (districtId) {
+                if (districtId != null) {
+                    scope.selectDistrict = _.filter(scope.districts, function (districts) {
+                        return districts.districtId == districtId;
+                    })
+
+                    if(scope.formAddressData.talukaId){
+                        delete scope.formAddressData.talukaId;
+                    }
+                    scope.talukas = scope.selectDistrict[0].talukaDatas;
                 }
             }
 
@@ -117,6 +133,10 @@
                 if (scope.formAddressData.districtId == null || scope.formAddressData.districtId == ""){
                     delete scope.formAddressData.districtId;
                 }
+                if (scope.formAddressData.talukaId == null || scope.formAddressData.talukaId == ""){
+                    delete scope.formAddressData.talukaId;
+                }
+
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;

@@ -145,6 +145,7 @@
     "label.menu.selectState":"Select State",
     "label.menu.selectDistrict":"Select District",
     "label.menu.selectVillages":"Select Village",
+    "label.menu.selectTaluka":"Select Taluka",
 
     "#Anchors": "..",
     "label.anchor.delete": "Delete",
@@ -2792,7 +2793,7 @@
     "label.tooltip.global.meetings-mandatory-for-jlg-loans":"This term is waiting for a professional definition.",
     "label.tooltip.global.organisation-start-date":"Determine organisation start date.",
     "label.tooltip.global.enable-clients-address":" Enable Create client with address",
-    "label.tooltip.global.populate_address_from_villages":"Populate the address fields from villages",
+    "label.tooltip.global.populate_client_address_from_villages":"Populate the client address fields from villages",
 
 
     "#----------------": "------------",

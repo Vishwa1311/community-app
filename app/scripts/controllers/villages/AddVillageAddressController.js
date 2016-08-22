@@ -8,6 +8,7 @@
             scope.countrys = [];
             scope.states = [];
             scope.districts = [];
+            scope.talukas = [];
             scope.formData = {};
             scope.formDataList = [scope.formData];
 
@@ -56,6 +57,8 @@
                     }
 
                     scope.states = scope.selectCountry[0].statesDatas;
+                    scope.districts = null;
+                    scope.talukas = null;
                 }
             }
 
@@ -68,6 +71,20 @@
                         delete scope.formData.districtId;
                     }
                     scope.districts = scope.selectState[0].districtDatas;
+                    scope.talukas = null;
+                }
+            }
+
+            scope.changeDistrict = function (districtId) {
+                if (districtId != null) {
+                    scope.selectDistrict = _.filter(scope.districts, function (districts) {
+                        return districts.districtId == districtId;
+                    })
+
+                    if(scope.formData.talukaId){
+                        delete scope.formData.talukaId;
+                    }
+                    scope.talukas = scope.selectDistrict[0].talukaDatas;
                 }
             }
 
@@ -85,6 +102,9 @@
                 }
                 if (scope.formData.districtId == null || scope.formData.districtId == ""){
                     delete scope.formData.districtId;
+                }
+                if (scope.formData.talukaId == null || scope.formData.talukaId == ""){
+                    delete scope.formData.talukaId;
                 }
                 resourceFactory.addressResource.create({entityType:scope.entityType,entityId :scope.villageId }, {addresses: scope.formDataList}, function (data) {
 
