@@ -40,6 +40,15 @@
                 if(scope.loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment) {
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
                 }
+
+                scope.loanproduct.charges = [];
+                for(var i in scope.loanproduct.productLoanCharges){
+                    if(scope.loanproduct.productLoanCharges[i].chargeData){
+                        var charge = scope.loanproduct.productLoanCharges[i].chargeData;
+                        charge.isMandatory = scope.loanproduct.productLoanCharges[i].isMandatory;
+                        scope.loanproduct.charges.push(charge);
+                    }
+                }
             });
 
             scope.scrollto = function (link) {
