@@ -4034,6 +4034,7 @@
     "validation.msg.loanapplicationreference.loanAmountRequested.amount.is.not.within.min.max.range": "Requested loan amount {{params[0].value}} is invalid. Must be an amount between {{params[1].value}} and {{params[2].value}} inclusive.",
 
     "label.heading.meeting": "Meeting",
+    "label.checkbox.ismandatory":"Is Mandatory",
 
     "":""
 }
