@@ -43,6 +43,7 @@
                                     scope.charges[i].loanApplicationReferenceId = scope.loanAppChargeData[j].loanApplicationReferenceId;
                                     scope.charges[i].dueDate = scope.loanAppChargeData[j].dueDate;
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
+                                    scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
                                 }
                             }
                         }
@@ -365,6 +366,21 @@
                 }
                 scope.submitData.formValidationData = scope.formValidationData;
                 scope.submitData.formRequestData = scope.formRequestData;
+                if (scope.charges.length > 0) {
+                    scope.submitData.formRequestData.charges = [];
+                    for (var i in scope.charges) {
+                        var charge = {};
+                        charge.chargeId = scope.charges[i].chargeId;
+                        charge.amount = scope.charges[i].amount;
+                        if(scope.charges[i].dueDate){
+                            charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                        }
+                        charge.isMandatory = scope.charges[i].isMandatory;
+                        //charge.locale = scope.optlang.code;
+                        //charge.dateFormat = scope.df;
+                        scope.submitData.formRequestData.charges.push(charge);
+                    }
+                }
                 /**
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}

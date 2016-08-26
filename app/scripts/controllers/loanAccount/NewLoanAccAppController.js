@@ -50,6 +50,24 @@
                     scope.loanaccountinfo = data;
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
+                    scope.productLoanCharges = data.product.productLoanCharges || [];
+                    if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                        for(var i in scope.productLoanCharges){
+                            if(scope.productLoanCharges[i].chargeData){
+                                for(var j in scope.loanaccountinfo.chargeOptions){
+                                    if(scope.productLoanCharges[i].chargeData.id == scope.loanaccountinfo.chargeOptions[j].id){
+                                        if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                                            var charge = scope.productLoanCharges[i].chargeData;
+                                            charge.chargeId = charge.id;
+                                            charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                            scope.charges.push(charge);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if(scope.loanaccountinfo.loanOfficerOptions){
                         resourceFactory.clientResource.get({clientId: routeParams.clientId}, function (data) {
                             if(data.staffId != null){

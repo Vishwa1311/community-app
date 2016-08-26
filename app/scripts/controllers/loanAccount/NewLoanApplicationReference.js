@@ -65,6 +65,24 @@
                     scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                     scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                     scope.charges = scope.loanaccountinfo.charges || [];
+                    scope.productLoanCharges = data.product.productLoanCharges || [];
+                    if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                        for(var i in scope.productLoanCharges){
+                            if(scope.productLoanCharges[i].chargeData){
+                                for(var j in scope.loanaccountinfo.chargeOptions){
+                                    if(scope.productLoanCharges[i].chargeData.id == scope.loanaccountinfo.chargeOptions[j].id){
+                                        if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                                            var charge = scope.productLoanCharges[i].chargeData;
+                                            charge.chargeId = charge.id;
+                                            charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                            scope.charges.push(charge);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 });
             };
 
@@ -75,10 +93,11 @@
 
             scope.addCharge = function () {
                 if (scope.chargeFormData.chargeId) {
-                    resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
+                    var chargeId = scope.chargeFormData.chargeId;
+                    scope.chargeFormData.chargeId = undefined;
+                    resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        scope.chargeFormData.chargeId = undefined;
                     });
                 }
             }
@@ -101,6 +120,7 @@
                     if(scope.charges[i].dueDate){
                         charge.dueDate = dateFilter(scope.charges[i].dueDate,scope.df);
                     }
+                    charge.isMandatory = scope.charges[i].isMandatory;
                     charge.locale = scope.optlang.code;
                     charge.dateFormat = scope.df;
                     this.formData.charges.push(charge);
