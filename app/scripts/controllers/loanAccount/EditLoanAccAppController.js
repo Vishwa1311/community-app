@@ -12,7 +12,6 @@
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
-
                 scope.getProductPledges(scope.loanaccountinfo);
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -100,9 +99,33 @@
 
                     }
                 }
-
-
                 scope.charges = scope.loanaccountinfo.charges || [];
+                scope.productLoanCharges = scope.loanaccountinfo.product.productLoanCharges || [];
+                if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                    for(var i in scope.productLoanCharges){
+                        if(scope.productLoanCharges[i].chargeData){
+                            if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                                var isChargeAdded = false;
+                                for(var j in scope.charges){
+                                    if(scope.productLoanCharges[i].chargeData.id == scope.charges[j].chargeId){
+                                        scope.charges[j].isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        isChargeAdded = true;
+                                        break;
+                                    }
+                                }
+                                if(isChargeAdded == false){
+                                    var charge = scope.productLoanCharges[i].chargeData;
+                                    charge.chargeId = charge.id;
+                                    charge.id = null;
+                                    charge.amountOrPercentage = charge.amount;
+                                    charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                    scope.charges.push(charge);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
                 if (scope.formData.disbursementData.length > 0) {
                     for (var i in scope.formData.disbursementData) {

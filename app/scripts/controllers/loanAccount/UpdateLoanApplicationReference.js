@@ -59,6 +59,24 @@
                         scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                         scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                         scope.charges = scope.loanaccountinfo.charges || [];
+                        scope.productLoanCharges = data.product.productLoanCharges || [];
+                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                            for(var i in scope.productLoanCharges){
+                                if(scope.productLoanCharges[i].chargeData){
+                                    for(var j in scope.loanaccountinfo.chargeOptions){
+                                        if(scope.productLoanCharges[i].chargeData.id == scope.loanaccountinfo.chargeOptions[j].id){
+                                            if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                                                var charge = scope.productLoanCharges[i].chargeData;
+                                                charge.chargeId = charge.id;
+                                                charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                                scope.charges.push(charge);
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }else{
                         scope.formData.externalIdOne = scope.applicationData.externalIdOne;
                         scope.formData.externalIdTwo = scope.applicationData.externalIdTwo;
@@ -107,6 +125,7 @@
                                         scope.charges[i].dueDate = dateFilter(new Date(scope.loanAppChargeData[j].dueDate),scope.df);
                                     }
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
+                                    scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
                                 }
                             }
                         }
@@ -146,6 +165,7 @@
                     if(scope.charges[i].dueDate){
                         charge.dueDate = dateFilter(scope.charges[i].dueDate,scope.df);
                     }
+                    charge.isMandatory = scope.charges[i].isMandatory;
                     charge.locale = scope.optlang.code;
                     charge.dateFormat = scope.df;
                     this.formData.charges.push(charge);
