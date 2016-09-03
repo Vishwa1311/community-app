@@ -31,8 +31,8 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
-
                 scope.considerFutureDisbursmentsInSchedule = scope.product.considerFutureDisbursmentsInSchedule;
+                scope.charges = [];
 
                 for(var i in scope.product.productLoanCharges){
                     if(scope.product.productLoanCharges[i].chargeData){
