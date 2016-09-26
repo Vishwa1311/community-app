@@ -167,6 +167,13 @@
 
             scope.changeVillage = function (villageId) {
                 if(villageId != null){
+                    
+                    if(scope.formAddressData.districtId){
+                        delete scope.formAddressData.districtId;
+                    }
+                    if(scope.formAddressData.talukaId){
+                        delete scope.formAddressData.talukaId;
+                    }
                     scope.formAddressData.villageTown = null
                     scope.talukas = null;
                     scope.formAddressData.postalCode = null;
@@ -188,20 +195,17 @@
                                 scope.districts = response.addressData[0].stateData.districtDatas;
                                 scope.formAddressData.districtId = response.addressData[0].districtData.districtId;
                             }
+                            scope.talukas = response.addressData[0].districtData.talukaDatas;
                             if (response.addressData[0].talukaData) {
-                                scope.talukas = response.addressData[0].districtData.talukaDatas;
                                 scope.formAddressData.talukaId = response.addressData[0].talukaData.talukaId;
                             }
-
                             if (response.addressData[0].postalCode) {
                                 scope.formAddressData.postalCode = response.addressData[0].postalCode;
                             }
                         }
                     });
 
-                }
-
-
+                } 
             }
 
             scope.changeCountry = function (countryId) {
@@ -222,6 +226,7 @@
                     scope.districts = null;
                     scope.talukas = null;
                 }
+                
             }
 
             scope.changeState = function (stateId) {

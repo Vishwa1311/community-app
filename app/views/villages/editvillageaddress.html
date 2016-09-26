@@ -15,7 +15,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <select chosen="countries" id="countryId" ng-model="formData.countryId" class="form-control"
+                    <select id="countryId" ng-model="formData.countryId" class="form-control"
                             ng-options="country.countryId as country.countryName for country in countries" value="{{country.countryId}}"
                             ng-change="changeCountry(formData.countryId)">
                         <option value="">{{'label.menu.selectCountry' | translate}}</option>
@@ -29,7 +29,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <select chosen="states" id="stateId" ng-model="formData.stateId"  class="form-control"
+                    <select id="stateId" ng-model="formData.stateId"  class="form-control"
                             ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
                             ng-change="changeState(formData.stateId)">
                         <option value="">{{'label.menu.selectState' | translate}}</option>
@@ -42,7 +42,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <select chosen="districts" id="districtId" ng-model="formData.districtId"  class="form-control"
+                    <select  id="districtId" ng-model="formData.districtId"  class="form-control"
                             ng-options="district.districtId as district.districtName for district in districts" value="{{district.districtId}}"
                              ng-change="changeDistrict(formData.districtId)">
                         <option value="">{{'label.menu.selectDistrict' | translate}}</option>
@@ -54,7 +54,7 @@
                     {{'label.input.talukname' | translate}}
                 </label>
                 <div class="col-sm-3">
-                    <select chosen="talukas" id="talukaId" ng-model="formData.talukaId"
+                    <select  id="talukaId" ng-model="formData.talukaId" class="form-control"
                             ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
                             value="{{taluka.talukaId}}" >
                         <option value="">{{'label.menu.selectTaluka' | translate}}</option>
