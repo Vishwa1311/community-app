@@ -21,7 +21,7 @@
                 scope.setDefaultGISConfig();
             });
 
-            resourceFactory.villageResource.getAllVillages({officeId: routeParams.officeId},function (data) {
+            resourceFactory.villageResource.getAllVillages({officeId: routeParams.officeId, limit: 1000},function (data) {
                 scope.villages = data;
             });
 
@@ -76,9 +76,11 @@
                     if(scope.formData.talukaId){
                         delete scope.formData.talukaId;
                     }
-
                     scope.states = scope.selectCountry[0].statesDatas;
+                    scope.districts = null;
+                    scope.talukas = null;
                 }
+
             }
 
             scope.changeState = function (stateId) {
@@ -93,6 +95,7 @@
                         delete scope.formData.talukaId;
                     }
                     scope.districts = scope.selectState[0].districtDatas;
+                    scope.talukas = null;
                 }
             }
             scope.changeDistrict = function (districtId) {
@@ -106,12 +109,21 @@
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
                 }
+                
             }
 
             scope.changeVillage = function (villageId) {
                 if (villageId != null) {
                     scope.formData.villageTown =null;
                     scope.talukas = null;
+
+                    if(scope.formData.talukaId){
+                        delete scope.formData.talukaId;
+                    }
+                    if (scope.formData.districtId) {
+                        delete scope.formData.districtId;
+                    }
+
                     scope.formData.postalCode = null;
                     scope.districts = null;
                     resourceFactory.villageResource.get({villageId: villageId}, function (response) {
@@ -130,10 +142,11 @@
                                 scope.districts = response.addressData[0].stateData.districtDatas;
                                 scope.formData.districtId = response.addressData[0].districtData.districtId;
                             }
+                            scope.talukas = response.addressData[0].districtData.talukaDatas;
                             if (response.addressData[0].talukaData) {
-                                scope.talukas = response.addressData[0].districtData.talukaDatas;
                                 scope.formData.talukaId = response.addressData[0].talukaData.talukaId;
                             }
+
                             if (response.addressData[0].postalCode) {
                                 scope.formData.postalCode = response.addressData[0].postalCode;
                             }
