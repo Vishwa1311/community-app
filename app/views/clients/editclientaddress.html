@@ -63,7 +63,7 @@
 
                 <div class="col-sm-3">
 
-                    <select id="countryId" ng-model="formData.countryId" class="form-control"
+                    <select id="countryId" ng-model="formData.countryId" name="countries" class="form-control"
                             ng-options="country.countryId as country.countryName for country in countries"
                             value="{{country.countryId}}"
                             ng-change="changeCountry(formData.countryId)" required late-validate="">
@@ -82,7 +82,7 @@
 
                 <div class="col-sm-3">
 
-                    <select id="stateId" ng-model="formData.stateId" class="form-control"
+                    <select id="stateId" ng-model="formData.stateId" name="states" class="form-control"
                             ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
                             ng-change="changeState(formData.stateId)" required late-validate="">
                         <option value="">{{'label.menu.selectState' | translate}}</option>
@@ -99,7 +99,7 @@
 
                 <div class="col-sm-3">
 
-                    <select id="districtId" ng-model="formData.districtId" class="form-control"
+                    <select id="districtId" ng-model="formData.districtId" name="districts" class="form-control"
                             ng-options="district.districtId as district.districtName for district in districts"
                             value="{{district.districtId}}"
                             ng-change="changeDistrict(formData.districtId)" required late-validate="">
@@ -116,7 +116,7 @@
                 </label>
                 <div class="col-sm-3">
 
-                    <select id="talukaId" ng-model="formData.talukaId" class="form-control"
+                    <select id="talukaId" ng-model="formData.talukaId" name="talukas"  class="form-control"
                             ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
                             value="{{taluka.talukaId}}" required late-validate="">
                         <option value="">{{'label.menu.selectTaluka' | translate}}</option>
