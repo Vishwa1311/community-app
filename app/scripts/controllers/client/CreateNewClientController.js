@@ -77,7 +77,7 @@
                 resourceFactory.configurationResource.get({configName: addressConfig}, function (response) {
                     if (response.enabled == true) {
                         scope.enableClientAddress = true;
-                        resourceFactory.villageResource.getAllVillages({officeId:scope.formData.officeId},function (data) {
+                        resourceFactory.villageResource.getAllVillages({officeId:scope.formData.officeId, limit:1000},function (data) {
                             scope.villages = data;
                         });
                         resourceFactory.addressTemplateResource.get({}, function (data) {
