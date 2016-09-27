@@ -211,21 +211,21 @@
 	            </div>
             </div>
 
-			<div ng-show="enableClientAddress">
+			<div ng-if="enableClientAddress">
 				<legend></legend>
 
 				<legend>{{'label.heading.clientaddress' | translate}}</legend>
 
 				<div class="form-group">
 					<label class="control-label col-sm-2">
-						{{'label.input.addresstype' | translate}}
+						{{'label.input.addresstype' | translate}} <span class="required">*</span>
 					</label>
 
 					<div class="col-sm-3">
 						<select chosen="addressType" id="addresstypeId" name="addressType"
 								ng-model="formAddressData.addressTypes[0]" class="form-control"
 								ng-options="address.id as address.name for address in addressType"
-								value="{{address.id}}">
+								value="{{address.id}}" required late-validate="">
 							<option value="">{{'label.menu.addressType' | translate}}</option>
 						</select>
 					</div>
@@ -235,7 +235,6 @@
 					<div ng-if="addressFromVillages">
 						<label class="control-label col-sm-1">
 							{{'label.input.villages' | translate}}  <span class="required">*</span>
-
 						</label>
 						<div class="col-sm-3">
 							<select chosen="villages" id="villageId" name="villages" ng-model="formAddressData.villageId" class="form-control"
@@ -251,6 +250,8 @@
 					</div>
 
 					<div class="col-sm-1">
+					</div>
+					<div class="col-sm-2">
 					</div>
 				</div>
 

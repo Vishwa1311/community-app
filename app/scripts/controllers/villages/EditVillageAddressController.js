@@ -22,23 +22,26 @@
 
                 resourceFactory.entityAddressResource.getAddress({entityType: scope.entityType, entityId: scope.villageId, addressId: scope.addressId}, function (data) {
 
-                    if(data.postalCode){
-                        scope.formData.postalCode =  data.postalCode;
-                    }
-                    scope.districts = data.stateData.districtDatas;
-                    if(data.districtData && data.districtData.districtId){
-                        scope.formData.districtId =  data.districtData.districtId;
+                    if(data.countryData.countryId){
+                        scope.formData.countryId =  data.countryData.countryId;
                     }
                     scope.states = data.countryData.statesDatas;
                     if(data.stateData && data.stateData.stateId){
                         scope.formData.stateId =  data.stateData.stateId;
                     }
-                    if(data.countryData.countryId){
-                        scope.formData.countryId =  data.countryData.countryId;
+
+                    scope.districts = data.stateData.districtDatas;
+                    if(data.districtData && data.districtData.districtId){
+                        scope.formData.districtId =  data.districtData.districtId;
                     }
+
                     scope.talukas = data.districtData.talukaDatas;
                     if(data.talukaData && data.talukaData.talukaId){
                         scope.formData.talukaId =  data.talukaData.talukaId;
+                    }
+
+                    if(data.postalCode){
+                        scope.formData.postalCode =  data.postalCode;
                     }
                 });
             }
