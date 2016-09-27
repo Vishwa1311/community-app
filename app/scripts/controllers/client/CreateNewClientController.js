@@ -144,7 +144,7 @@
                     scope.savingproducts = data.savingProductOptions;
                 });
                 if(scope.addressFromVillages ) {
-                    resourceFactory.villageResource.getAllVillages({officeId: officeId}, function (data) {
+                    resourceFactory.villageResource.getAllVillages({officeId: officeId, limit: 1000}, function (data) {
                         scope.villages = data;
                     });
                 }
