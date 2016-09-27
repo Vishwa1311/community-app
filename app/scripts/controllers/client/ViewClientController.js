@@ -16,7 +16,8 @@
             scope.pledges = [];
             scope.addressData = [];
             scope.addressId ;
-            
+            scope.enableClientAddress = false;
+
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -398,12 +399,27 @@
                 }
             };
 
-            scope.entityType = "clients";
-            resourceFactory.addressDataResource.getAll({entityType:scope.entityType,entityId :routeParams.id}, function (response) {
-                if(response!=null){
-                    scope.addressData = response;
+            var addressConfig = 'enable-clients-address';
+            resourceFactory.configurationResource.get({configName: addressConfig}, function (response) {
+                if (response.enabled == true) {
+                    scope.enableClientAddress = true;
+                    scope.fetchEntityAddress();
+                } else {
+                    scope.enableClientAddress = false;
                 }
             });
+
+            scope.fetchEntityAddress = function () {
+                scope.entityType = "clients";
+                resourceFactory.addressDataResource.getAll({
+                    entityType: scope.entityType,
+                    entityId: routeParams.id
+                }, function (response) {
+                    if (response != null) {
+                        scope.addressData = response;
+                    }
+                });
+            }
             scope.deleteAddress = function (addressId) {
                 scope.addressId = addressId;
                 $modal.open({
