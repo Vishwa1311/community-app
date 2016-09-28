@@ -65,12 +65,12 @@
                                 if(scope.productLoanCharges[i].chargeData){
                                     for(var j in scope.loanaccountinfo.chargeOptions){
                                         if(scope.productLoanCharges[i].chargeData.id == scope.loanaccountinfo.chargeOptions[j].id){
-                                            if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                                            //if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
                                                 var charge = scope.productLoanCharges[i].chargeData;
                                                 charge.chargeId = charge.id;
                                                 charge.isMandatory = scope.productLoanCharges[i].isMandatory;
                                                 scope.charges.push(charge);
-                                            }
+                                            //}
                                             break;
                                         }
                                     }
