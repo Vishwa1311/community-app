@@ -913,6 +913,18 @@
             })
             .when('/editpledge/:pledgeId', {
                 templateUrl: 'views/collaterals/editpledge.html'
+            })
+            .when('/viewtransactionauthentication',{
+                templateUrl: 'views/products/viewtransactionauthentication.html'
+            })
+            .when('/edittransactionauthentication/:id',{
+                templateUrl: 'views/products/edittransactionauthentication.html'
+            })
+            .when('/createtransactionauthentication', {
+                templateUrl: 'views/products/createtransactionauthentication.html'
+            })
+            .when('/viewexternalauthenticationservices', {
+                templateUrl: 'views/system/viewexternalauthenticationservices.html'
             });
         $locationProvider.html5Mode(false);
     };

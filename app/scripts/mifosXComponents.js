@@ -166,6 +166,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/ViewAccountNumberPreferencesController',
             'system/AddAccountNumberPreferencesController',
             'system/EditAccountNumberPreferencesController',
+            'system/ViewExternalAuthenticationServices',
             'organization/HolController',
             'organization/ViewHolController',
             'organization/EditHolidayController',
@@ -290,7 +291,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'collaterals/SerachPledgeController',
             'collaterals/CollateralValueCalculatorController',
             'collaterals/EditPledgeController',
-            'collaterals/EditCollateralQualityStandardsController'
+            'collaterals/EditCollateralQualityStandardsController',
+            'product/ViewTransactionAuthenticationController',
+            'product/EditTransactionAuthentication',
+            'product/CreateTransactionAuthentication'
         ],
         filters: [
             'StatusLookup',
