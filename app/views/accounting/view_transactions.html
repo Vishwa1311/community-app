@@ -122,6 +122,10 @@
         </div>
     </script>
     <div class="well">
+        <div class="text-right form-group">
+            <span><a id="run" ng-click="runReport()" class="btn btn-primary icon-print"></i>
+                &nbsp;&nbsp;{{ 'label.button.print' | translate }}</a></span>
+        </div>
         <div>
             <tabset tabset-name="journalentryTabset">
                 <tab heading="{{'label.heading.journalentry' | translate}}">
@@ -233,6 +237,10 @@
                     </div>
                 </tab>
             </tabset>
+            <div collapse="hidePentahoReport" class="row alert-block span tab-content">
+                <br>
+                <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+            </div>
         </div>
     </div>
 </form>
