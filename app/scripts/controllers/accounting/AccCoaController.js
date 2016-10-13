@@ -42,7 +42,6 @@
 
             resourceFactory.accountCoaResource.getAllAccountCoas(function (data) {
                 scope.coadatas = scope.deepCopy(data);
-				
 
                 var assetObject = {id: -1, name: "ASSET", parentId: -999, children: []};
                 var liabilitiesObject = {id: -2, name: "LIABILITY", parentId: -999, children: []};
@@ -84,6 +83,16 @@
                     return a.parentId - b.parentId;
                 }
 
+                function sortGlCode(a, b) {
+                    if(a.glCode < b.glCode){
+                        return -1;
+                    }
+                    if(a.glCode > b.glCode){
+                        return 1;
+                    }
+                    return 0;
+                }
+
                 data.sort(sortByParentId);
                 var glAccountsArray = rootArray.concat(data);
 				
@@ -96,12 +105,12 @@
                         parentNode = idToNodeMap[currentObj.parentId];
                         parentNode.children.push(currentObj);
                         currentObj.collapsed = "true";
+                        parentNode.children.sort(sortGlCode);
                     }
                 }
                 scope.treedata = root;
             });
-			
-			
+
         }
     });
     mifosX.ng.application.controller('AccCoaController', ['$scope','$rootScope', 'ResourceFactory', '$location', mifosX.controllers.AccCoaController]).run(function ($log) {
