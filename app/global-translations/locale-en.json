@@ -4163,6 +4163,7 @@
     "label.menu.datatable": "Data Table",
     "label.heading.deleteentitydatatablecheck": "Do you want to remove Entity Data Table Check?",
     "label.button.create": "Create",
+    "error.msg.datatable.no.value.provided.for.required.fields": "Values cannot be empty for required fields in datatable `{{params[0].value}}`",
 
     "": ""
 

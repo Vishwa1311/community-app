@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams) {
+        CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams, WizardHandler) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
@@ -13,8 +13,16 @@
             scope.available = [];
             scope.added = [];
             scope.formData = {};
+            scope.formDat = {};
             scope.formData.clientMembers = [];
             scope.forceOffice = null;
+            scope.datatables = [];
+            scope.noOfTabs = 1;
+            scope.step = '-';
+            scope.datatable = {registeredTableName: '', data: {locale:scope.optlang.code, dateFormat: scope.df}};
+            scope.formData.datatables = [];
+            scope.formDat.datatables = [];
+            scope.tf = "HH:mm";
 
             var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
             if (routeParams.centerId) {
@@ -24,6 +32,38 @@
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
+
+                scope.datatables = data.datatables;
+                scope.noOfTabs = 1;
+                if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
+                    scope.noOfTabs += scope.datatables.length;
+                    angular.forEach(scope.datatables, function (datatable, index) {
+                        scope.colHeaders = datatable.columnHeaderData;
+                        angular.forEach(datatable.columnHeaderData, function (colHeader, i) {
+                            var colName = datatable.columnHeaderData[0].columnName;
+                            if (colName == 'id') {
+                                datatable.columnHeaderData.splice(0, 1);
+                            }
+
+                            colName = datatable.columnHeaderData[0].columnName;
+                            if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
+                                datatable.columnHeaderData.splice(0, 1);
+                            }
+
+                            if (datatable.columnHeaderData[i].columnDisplayType == 'DATETIME') {
+                                scope.formDat.datatables[index] = {data: {}};
+                                scope.formDat.datatables[index].data[datatable.columnHeaderData[i].columnName] = {};
+                            } else if (datatable.columnHeaderData[i].columnDisplayType == 'DATE') {
+                                scope.formDat.datatables[index] = {data: {}};
+                            }
+                        });
+                        scope.formData.datatables[index] = {
+                            registeredTableName: datatable.registeredTableName,
+                            data: {locale: scope.optlang.code}
+                        };
+                    });
+                }
+
                 if(routeParams.officeId) {
                     scope.formData.officeId = routeParams.officeId;
                     for(var i in data.officeOptions) {
@@ -38,6 +78,7 @@
                         scope.formData.staffId = data.staffId;
                     }
                 }
+
             });
 
             scope.viewClient = function (item) {
@@ -87,7 +128,30 @@
         		scope.cancel = "#/groups"
         	}
 
+            //return input type
+            scope.fieldType = function (type) {
+                var fieldType = "";
+                if (type) {
+                    if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
+                        fieldType = 'SELECT';
+                    } else if (type == 'DATE') {
+                        fieldType = 'DATE';
+                    } else if (type == 'DATETIME') {
+                        fieldType = 'DATETIME';
+                    } else if (type == 'BOOLEAN') {
+                        fieldType = 'BOOLEAN';
+                    } else {
+                        fieldType = 'TEXT';
+                    }
+                }
+                return fieldType;
+            };
+
             scope.submit = function () {
+                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
+                    WizardHandler.wizard().next();
+                    return;
+                }
                 for (var i in scope.addedClients) {
                     scope.formData.clientMembers[i] = scope.addedClients[i].id;
                 }
@@ -108,13 +172,32 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
+                if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
+                    angular.forEach(scope.datatables, function (datatable, index) {
+                        scope.columnHeaders = datatable.columnHeaderData;
+                        angular.forEach(scope.columnHeaders, function (colHeader, i) {
+                            scope.dateFormat = scope.df + " " + scope.tf
+                            if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
+                                scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
+                                    scope.dateFormat);
+                                scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                            } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                                scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
+                                + " " + dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time, scope.tf);
+                                scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                            }
+                        });
+                    });
+                } else {
+                    delete scope.formData.datatables;
+                }
                 resourceFactory.groupResource.save(this.formData, function (data) {
                     location.path('/viewgroup/' + data.resourceId);
                 });
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', mifosX.controllers.CreateGroupController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', 'WizardHandler', mifosX.controllers.CreateGroupController]).run(function ($log) {
         $log.info("CreateGroupController initialized");
     });
 }(mifosX.controllers || {}));
