@@ -39,6 +39,10 @@
                     scope.noOfTabs += scope.datatables.length;
                     angular.forEach(scope.datatables, function (datatable, index) {
                         scope.colHeaders = datatable.columnHeaderData;
+                        scope.formData.datatables[index] = {
+                            registeredTableName: datatable.registeredTableName,
+                            data: {locale: scope.optlang.code}
+                        };
                         angular.forEach(datatable.columnHeaderData, function (colHeader, i) {
                             var colName = datatable.columnHeaderData[0].columnName;
                             if (colName == 'id') {
@@ -50,17 +54,14 @@
                                 datatable.columnHeaderData.splice(0, 1);
                             }
 
-                            if (datatable.columnHeaderData[i].columnDisplayType == 'DATETIME') {
-                                scope.formDat.datatables[index] = {data: {}};
-                                scope.formDat.datatables[index].data[datatable.columnHeaderData[i].columnName] = {};
-                            } else if (datatable.columnHeaderData[i].columnDisplayType == 'DATE') {
+                            if (_.isEmpty(scope.formDat.datatables[index])) {
                                 scope.formDat.datatables[index] = {data: {}};
                             }
+
+                            if (datatable.columnHeaderData[i].columnDisplayType == 'DATETIME') {
+                                scope.formDat.datatables[index].data[datatable.columnHeaderData[i].columnName] = {};
+                            }
                         });
-                        scope.formData.datatables[index] = {
-                            registeredTableName: datatable.registeredTableName,
-                            data: {locale: scope.optlang.code}
-                        };
                     });
                 }
 
@@ -178,13 +179,17 @@
                         angular.forEach(scope.columnHeaders, function (colHeader, i) {
                             scope.dateFormat = scope.df + " " + scope.tf
                             if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
-                                scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
-                                    scope.dateFormat);
-                                scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName])) {
+                                    scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
+                                        scope.dateFormat);
+                                    scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                }
                             } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
-                                scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
-                                + " " + dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time, scope.tf);
-                                scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date) && !_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time)) {
+                                    scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
+                                        + " " + dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time, scope.tf);
+                                    scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                }
                             }
                         });
                     });
