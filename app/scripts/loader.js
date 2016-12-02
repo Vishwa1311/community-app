@@ -33,7 +33,7 @@
             'Q': '../bower_components/q/q',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
             'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min',
-            'angular-wizard': '../scripts/modules/angular-wizard',
+            'angular-wizard': '../bower_components/angular-wizard/dist/angular-wizard',
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination'
         },
         shim: {
