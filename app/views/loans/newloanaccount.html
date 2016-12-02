@@ -10,9 +10,9 @@
         <div class="row">
             <div class="col-md-12">
                 <HR>
-                <wizard selected-step="loanApp" current-step="loanApp">
+                <wizard current-step="step">
                     <div class="card">
-                        <wz-step wz-title="Loan Application">
+                        <wz-step title="{{'label.anchor.loanapplication' | translate}}">
                             <div class="card-header">
                                 <div class="card-badge animated flipInX"><span class="icon fa fa-th"></span></div>
                                 <div class="card-actions"></div>
@@ -618,7 +618,7 @@
                                 </form>
                             </div>
                         </wz-step>
-                        <!--<wz-step ng-if="datatables" ng-repeat="datatable in datatables" wz-title="{{datatable.registeredTableName}}">
+                        <wz-step ng-if="datatables" ng-repeat="datatable in datatables" title="{{datatable.registeredTableName}}">
                             <form class="form-horizontal well" ng-submit="submit()">
                                 <api-validate></api-validate>
                                 <fieldset>
@@ -689,7 +689,7 @@
                                     </div>
                                 </fieldset>
                             </form>
-                        </wz-step>-->
+                        </wz-step>
                     </div>
                 </wizard>
             </div>

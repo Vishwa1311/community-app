@@ -12,13 +12,14 @@
             scope.date = {};
             scope.formDat = {};
             scope.datatables = [];
-            scope.noOfTabs = 0;
+            scope.noOfTabs = 1;
             scope.step = '-';
             scope.datatable = {registeredTableName: '', data: {locale:scope.optlang.code, dateFormat: scope.df}};
             scope.formData.datatables = [];
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
             scope.loanApp = "LoanApp";
+            scope.customSteps = [];
 
             scope.date.first = new Date();
             if (scope.clientId) {
@@ -55,6 +56,10 @@
                     scope.groupName = data.group.name;
                 }
                 scope.handleDatatables(scope.datatables);
+                /*scope.wzTit = {wzTitle: scope.loanApp};
+                WizardHandler.wizard().goTo(scope.wzTit);*/
+                // scope.customSteps = WizardHandler.wizard().getEnabledSteps();
+
             });
 
             scope.loanProductChange = function (loanProductId) {
@@ -66,6 +71,8 @@
                     scope.datatables = data.datatables;
                     scope.noOfTabs = scope.datatables.length + 1;
                     scope.handleDatatables(scope.datatables);
+                    /*scope.wzTit = {wzTitle: scope.loanApp};
+                    WizardHandler.wizard().goTo(scope.wzTit);*/
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -274,8 +281,8 @@
             };
 
             scope.submit = function () {
-                if (WizardHandler.wizard(scope.loanApp).getCurrentStep() != scope.noOfTabs) {
-                    WizardHandler.wizard(scope.loanApp).next();
+                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
+                    WizardHandler.wizard().next();
                     return;
                 }
                 // Make sure charges and collaterals are empty before initializing.
